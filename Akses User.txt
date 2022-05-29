@@ -1,0 +1,19 @@
+AKSES PENGGUNA / type_user
+-----------------------------
+0 = Staff Warehouse
+	1) Username : admin
+           Password : 123
+-----------------------------
+1 = Manajer Depo
+	1) Username : budi
+           Password : 123
+-----------------------------
+2 = Kuangan
+	1) Username : maria
+           Password : 123
+-----------------------------
+3 = Karyawan Inti
+	1) Username : puspita
+           Password : 123
+	2) Username : dona
+           Password : 123
