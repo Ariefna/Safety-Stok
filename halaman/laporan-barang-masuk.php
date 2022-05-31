@@ -7,7 +7,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 } else {
     $index = 200;
     include 'template/head.php';
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -37,7 +37,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                         <div class="row">
                             <div class="col-12 col-sm-12">
                                 <div class="card">
-                                   
+
                                     <!-- /.card-header -->
                                     <div class="card-body">
                                         <table id="example1" class="table table-bordered table-striped">
@@ -47,51 +47,48 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         <center>NO</center>
                                                     </th>
                                                     <th>
-                                                        <center>Tanggal</center>
+                                                        <center>Nama Barang</center>
                                                     </th>
                                                     <th>
-                                                        <center>Status</center>
+                                                        <center>Stok Masuk</center>
                                                     </th>
-                                                    <th>
-                                                        <center>File</center>
-                                                    </th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $sql = 'SELECT a.*, b.nama_jenis_barang 
-                                                    FROM barang a JOIN jenis_barang b ON a.id_jenis_barang = b.id_jenis_barang 
-                                                    WHERE a.status_request = 1
-                                                    GROUP BY a.date_request';
-                                                    $i = 1;
-                                                    $query = mysqli_query($conn, $sql);
-                                                    if (mysqli_num_rows($query) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($query)) {
+                                                $sql = "SELECT a.*, b.nama_barang, b.no_serial, c.nama_satuan_barang
+                                                    FROM detail_permintaan_in a JOIN barang b ON a.id_barang = b.id_barang
+                                                    JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang
+                                                    where status_detail_permintaan_in = 1";
+                                                $i = 1;
+                                                $query = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($query) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($query)) {
 
-                                                            if ($row['status_request'] == 0) {
-                                                                $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                            } elseif ($row['status_request'] == 1) {
-                                                                $verifikasi = '<span class="right badge badge-success">Approved</span>';
-                                                            } else {
-                                                                $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
-                                                            }
+                                                        if ($row['status_detail_permintaan_in'] == 0) {
+                                                            $verifikasi = '<span class="right badge badge-warning">Panding</span>';
+                                                        } elseif ($row['status_detail_permintaan_in'] == 1) {
+                                                            $verifikasi = '<span class="right badge badge-success">Approved</span>';
+                                                        } else {
+                                                            $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
+                                                        }
 
-                                                            echo '<tr>
+                                                        if ($row['keterangan_in'] == null) {
+                                                            $keterangannya = '-';
+                                                        } else {
+                                                            $keterangannya = $row['keterangan_in'];
+                                                        }
+
+                                                        echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
-                                                            <td align="center">' . $row['date_request'] . '</td>
-                                                            <td align="center">' . $verifikasi . '</td>
-                                                            <td align="center" style="">
-                                                                <form class="" action="cetak-lp-masuk.php" method="GET">
-                                                                    <input type="text" name="cetak" value="' . $row['date_request'] . '" hidden>
-                                                                    <button class="btn btn-primary btn-sm" type="submit" name=""><i class="fa fa-file"></i></button>
-                                                                </form>
-                                                            </td>
+                                                            <td align="">' . $row['nama_barang'] . '</td>
+                                                            <td align="center">' . $row['jumlah_disetujui_in'] . '</td>
                                                             </tr>
                                                             ';
-                                                        }
-                                                    } else { }
-                                                    ?>
+                                                    }
+                                                } else {
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -115,7 +112,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         </div>
         <!-- ./wrapper -->
         <?php include 'template/script.php';
-            ?>
+        ?>
     </body>
 <?php } ?>
 

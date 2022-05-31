@@ -15,40 +15,50 @@ if (isset($_POST['simpan'])) {
         $query_pengajuan = mysqli_query($conn, $sql_pengajuan);
 
 
-        $id_jenis_barang    = $_POST['id_jenis_barang'];
+        $id_satuan_barang    = $_POST['id_satuan_barang'];
         $nama_barang        = $_POST['nama_barang'];
         $jumlah_barang      = $_POST['jumlah_barang'];
-        $harga_barang       = $_POST['harga_barang'];
+        // $harga_barang       = $_POST['harga_barang'];
+        $harga_barang       = 0;
         $keterangan_barang  = $_POST['keterangan_barang'];
         $catatan_barang     = $_POST['catatan_barang'];
         $id_user            = $_POST['id_user'];
 
 
         $count = count($nama_barang);
-        $sqlc = "INSERT INTO barang (no_request, no_serial, nama_barang, jumlah_barang, harga_barang, keterangan_barang, catatan_barang, date_request, id_user, id_jenis_barang) VALUES ";
+        $sqlc = "INSERT INTO barang (no_request, no_serial, nama_barang, jumlah_barang, harga_barang, keterangan_barang, catatan_barang, date_request, id_user, id_satuan_barang,
+        status_po, status_request, foto_barang) VALUES ";
         for ($i = 0; $i < $count; $i++) {
             $sqlc .= "(
                     '{$no_request}',
                     '{$no_serial[$i]}',
                     '{$nama_barang[$i]}',
                     '{$jumlah_barang[$i]}',
-                    '{$harga_barang[$i]}',
+                    '{$harga_barang}',
                     '{$keterangan_barang[$i]}',
                     '{$catatan_barang[$i]}',
                     '{$date_request}',
                     '{$id_user}',
-                    '{$id_jenis_barang[$i]}')";
+                    '{$id_satuan_barang[$i]}',
+                    '0',
+                    '0',
+                    '')";
             $sqlc .= ",";
         }
 
         $sqlc = rtrim($sqlc, ",");
         $insert = $conn->query($sqlc);
-        
+
 
         if ($insert) {
+            // echo '
+            // <script type="text/javascript">
+            //     document.location = "../menu-pengajuan-barang-baru.php?tambah=sukses";
+            // </script>
+            // ';
             echo '
             <script type="text/javascript">
-                document.location = "../menu-pengajuan-barang-baru.php?tambah=sukses";
+                document.location = "../tambah-data-barang.php?tambah=sukses";
             </script>
             ';
         } else {
@@ -58,7 +68,6 @@ if (isset($_POST['simpan'])) {
             </script>
             ';
         }
-
     } else {
         // $id_barang          = $_POST['id_barang'];
         // $no_request         = $_POST['no_request'];
@@ -90,7 +99,6 @@ if (isset($_POST['simpan'])) {
         //     ';
         // }
     }
-
 } elseif (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
@@ -98,9 +106,14 @@ if (isset($_POST['simpan'])) {
     $query = mysqli_query($conn, $sql);
 
     if ($query) {
+        // echo '
+        // <script type="text/javascript">
+        // document.location = "../menu-pengajuan-barang-baru.php?delete=sukses";
+        // </script>
+        // ';
         echo '
         <script type="text/javascript">
-        document.location = "../menu-pengajuan-barang-baru.php?delete=sukses";
+        document.location = "../menu-data-barang.php?delete=sukses";
         </script>
         ';
     } else {
@@ -110,7 +123,6 @@ if (isset($_POST['simpan'])) {
         </script>
         ';
     }
-
 } else {
     $id_barang           = $_POST['update_foto'];
     $no_request          = md5($_POST['no_request']);
@@ -134,7 +146,7 @@ if (isset($_POST['simpan'])) {
         if ($query) {
             echo '
                 <script type="text/javascript">
-                    document.location = "../detail-pengajuan-barang.php?detail='. $no_request .'&update_foto_ya=sukses";
+                    document.location = "../detail-pengajuan-barang.php?detail=' . $no_request . '&update_foto_ya=sukses";
                 </script>
                 ';
         } else {
@@ -145,5 +157,4 @@ if (isset($_POST['simpan'])) {
                 ';
         }
     }
-
 }

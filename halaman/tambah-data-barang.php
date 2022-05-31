@@ -8,7 +8,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
     $index = 0;
     include 'template/head.php';
     $your_id = $_SESSION['id_user']
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -16,49 +16,50 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- Navbar -->
             <?php include 'template/navbar.php'; ?>
             <?php if (isset($_GET['ubah'])) {
-                    $sql = 'SELECT * FROM pengajuan_barang_baru WHERE md5(id_pengajuan_barang)="' . $_GET['ubah'] . '"';
-                    $i = 1;
-                    $query = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($query) > 0) {
-                        while ($row = mysqli_fetch_assoc($query)) {
-                            $id_pengajuan_barang              = $row['id_pengajuan_barang'];
-                            $no_request             = $row['no_request'];
-                            // $no_serial              = $row['no_serial'];
-                            // $id_jenis_barang        = $row['id_jenis_barang'];
-                            // $nama_barang            = $row['nama_barang'];
-                            // $jumlah_barang          = $row['jumlah_barang'];
-                            // $harga_barang           = $row['harga_barang'];
-                            // $keterangan_barang      = $row['keterangan_barang'];
-                            // $catatan_barang         = $row['catatan_barang'];
-                            // $date_request           = $row['date_request'];
-                        }
-                    } else { }
-                } else {
-
-                    $id_pengajuan_barang              = 0;
-
-                    // $no_request    = "";
-                    // $no_serial              = "";
-                    // $id_jenis_barang        = "";
-                    // $nama_barang            = "";
-                    // $jumlah_barang          = "";
-                    // $harga_barang           = "";
-                    // $keterangan_barang      = "";
-                    // $catatan_barang         = "";
-                    $sql_id = "SELECT max(no_request) AS no_request FROM pengajuan_barang_baru WHERE no_request like '%REQ-%'";
-                    $hasil_id = mysqli_query($conn, $sql_id);
-                    if (mysqli_num_rows($hasil_id) > 0) {
-                        $row = mysqli_fetch_array($hasil_id);
-                        $idmax = $row['no_request'];
-                        $id_urut = (int) substr($idmax, 4, 5);
-                        $id_urut++;
-                        // sprintf = menambahkan (+)
-                        $no_request = "REQ-" . sprintf("%05s", $id_urut);
-                    } else {
-                        $no_request = "REQ-00001";
+                $sql = 'SELECT * FROM pengajuan_barang_baru WHERE md5(id_pengajuan_barang)="' . $_GET['ubah'] . '"';
+                $i = 1;
+                $query = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($query) > 0) {
+                    while ($row = mysqli_fetch_assoc($query)) {
+                        $id_pengajuan_barang              = $row['id_pengajuan_barang'];
+                        $no_request             = $row['no_request'];
+                        // $no_serial              = $row['no_serial'];
+                        // $id_jenis_barang        = $row['id_jenis_barang'];
+                        // $nama_barang            = $row['nama_barang'];
+                        // $jumlah_barang          = $row['jumlah_barang'];
+                        // $harga_barang           = $row['harga_barang'];
+                        // $keterangan_barang      = $row['keterangan_barang'];
+                        // $catatan_barang         = $row['catatan_barang'];
+                        // $date_request           = $row['date_request'];
                     }
+                } else {
                 }
-                ?>
+            } else {
+
+                $id_pengajuan_barang              = 0;
+
+                // $no_request    = "";
+                // $no_serial              = "";
+                // $id_jenis_barang        = "";
+                // $nama_barang            = "";
+                // $jumlah_barang          = "";
+                // $harga_barang           = "";
+                // $keterangan_barang      = "";
+                // $catatan_barang         = "";
+                $sql_id = "SELECT max(no_request) AS no_request FROM pengajuan_barang_baru WHERE no_request like '%REQ-%'";
+                $hasil_id = mysqli_query($conn, $sql_id);
+                if (mysqli_num_rows($hasil_id) > 0) {
+                    $row = mysqli_fetch_array($hasil_id);
+                    $idmax = $row['no_request'];
+                    $id_urut = (int) substr($idmax, 4, 5);
+                    $id_urut++;
+                    // sprintf = menambahkan (+)
+                    $no_request = "REQ-" . sprintf("%05s", $id_urut);
+                } else {
+                    $no_request = "REQ-00001";
+                }
+            }
+            ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -106,14 +107,14 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <div class="form-group col-sm-10">
                                                         <select name="id_satuan_barang[]" id="id_satuan_barang" class="form-control" required>
                                                             <option value="0" <?php if (!isset($_GET['id_satuan_barang'])) {
-                                                                                        echo "selected";
-                                                                                        // code...
-                                                                                    } ?>>- Pilih Satuan Barang -</option>
+                                                                                    echo "selected";
+                                                                                    // code...
+                                                                                } ?>>- Pilih Satuan Barang -</option>
                                                             <?php $str = mysqli_query($conn, "SELECT * FROM satuan_barang");
-                                                                while ($data = mysqli_fetch_array($str)) { ?>
+                                                            while ($data = mysqli_fetch_array($str)) { ?>
                                                                 <option value="<?php echo @$data[0]; ?>" <?php if (@$data[0] == @$data[0]) {
-                                                                                                                        echo "selected";
-                                                                                                                    } ?>> <?php echo @$data[1]; ?></option>
+                                                                                                                echo "selected";
+                                                                                                            } ?>> <?php echo @$data[1]; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
@@ -153,7 +154,34 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-        <?php include 'template/script.php'; ?>
+        <?php include 'template/script.php';
+        if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete'])) {
+            if ($_GET['tambah'] == "sukses") {
+                echo '
+                    <script type="text/javascript">
+                    toastr.success("Data Barang berhasil ditambahkan.");
+                    </script>
+                    ';
+            } elseif ($_GET['edit'] == "sukses") {
+                echo '
+                    <script type="text/javascript">
+                    toastr.success("Data Barang berhasil diubah.");
+                    </script>
+                    ';
+            } elseif ($_GET['delete'] == "sukses") {
+                echo '
+                    <script type="text/javascript">
+                    toastr.success("Data Barang berhasil dihapus.");
+                    </script>
+                    ';
+            } else {
+                echo '
+                    <script type="text/javascript">
+                    toastr.error("Permintaan Anda gagal diproses.");
+                    </script>
+                    ';
+            }
+        } ?>
 
     </body>
 <?php } ?>

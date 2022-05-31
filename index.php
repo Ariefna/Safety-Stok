@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html>
 <?php include 'template/head.php'; ?>
-<?php 
-  error_reporting(0);
-  //Remove Otomatis Data Safety Stok Ketika Berbeda Bulan
-  date_default_timezone_set('Asia/Jakarta');
-  $date_now = date('Y-m');
+<?php
+error_reporting(0);
+//Remove Otomatis Data Safety Stok Ketika Berbeda Bulan
+date_default_timezone_set('Asia/Jakarta');
+$date_now = date('Y-m');
 
-  $cekdatesty = "SELECT date_sty FROM safety_stok";
-  $cekquedata = mysqli_query($conn, $cekdatesty);
-  $data_delete_sty = mysqli_fetch_array($cekquedata);
+$cekdatesty = "SELECT date_sty FROM safety_stok";
+$cekquedata = mysqli_query($conn, $cekdatesty);
+$data_delete_sty = mysqli_fetch_array($cekquedata);
 
-  $datenya_ = $data_delete_sty['date_sty'];
-  $sub_data = substr($datenya_, 0, -3);
+$datenya_ = $data_delete_sty['date_sty'];
+$sub_data = substr($datenya_, 0, -3);
 
-  if ($date_now != $sub_data) {
-    $removeSty = "DELETE FROM safety_stok";
-    $queRemove = mysqli_query($conn, $removeSty);
-    
-  }
+if ($date_now != $sub_data) {
+  $removeSty = "DELETE FROM safety_stok";
+  $queRemove = mysqli_query($conn, $removeSty);
+}
 
 ?>
 
@@ -65,12 +64,12 @@
     <?php include 'template/footer.php'; ?>
     <?php include 'template/script.php'; ?>
     <?php
-    
+
     // AKSES PENGGUNA / type_user
-    // 0 = Staff Warehouse
-    // 1 = Manajer Depo
-    // 2 = Kuangan
-    // 3 = Karyawan Inti
+    // 0 = Superadmin
+    // 1 = Admin Cabang
+    // 2 = gudang
+    // 3 = pimpinan
 
     if (isset($_POST['login'])) {
       $pwku = htmlentities(md5($_POST['password']));
@@ -87,19 +86,14 @@
         $_SESSION['id_user'] = $row['id_user'];
 
         if ($_SESSION['type'] == 0) {
-          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-data-barang.php';</script>";
-        
+          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-data-karyawan.php';</script>";
         } elseif ($_SESSION['type'] == 1) {
-          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-barang.php';</script>";
-        
-        } elseif ($_SESSION['type'] == 2) {
-          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/laporan-barang-masuk.php';</script>";
-        
-        } else {
           echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-permintaan-brg-keluar.php';</script>";
-
+        } elseif ($_SESSION['type'] == 2) {
+          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan_gudang_out.php';</script>";
+        } else {
+          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan_out.php';</script>";
         }
-       
       } else {
         echo '<script type="text/javascript">
     toastr.error("Username atau password yang Anda masukan salah.");

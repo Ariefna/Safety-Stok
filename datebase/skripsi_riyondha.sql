@@ -113,6 +113,28 @@ CREATE TABLE `detail_permintaan_out` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Table structure for table `detail_permintaan_in`
+--
+
+CREATE TABLE `detail_permintaan_in` (
+  `id_detail_permintaan_in` int(11) NOT NULL,
+  `kode_permintaan_brg_in` varchar(50) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `jumlah_permintaan_barang_in` int(11) NOT NULL,
+  `jumlah_disetujui_in` int(11) NOT NULL,
+  `keterangan_in` varchar(200) NOT NULL,
+  `status_detail_permintaan_in` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `permintaan_barang_in` (
+  `id_permintaan_brg_in` int(11) NOT NULL,
+  `kode_permintaan_brg_in` varchar(50) NOT NULL,
+  `date_permintaan_brg_in` date NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `status_permintaan_brg_in` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Dumping data for table `detail_permintaan_out`
 --
 
@@ -338,6 +360,9 @@ ALTER TABLE `detail_peminjaman`
 ALTER TABLE `detail_permintaan_out`
   ADD PRIMARY KEY (`id_detail_permintaan_out`);
 
+  ALTER TABLE `detail_permintaan_in`
+  ADD PRIMARY KEY (`id_detail_permintaan_out`);
+
 --
 -- Indexes for table `peminjaman_barang`
 --
@@ -355,6 +380,9 @@ ALTER TABLE `pengajuan_barang_baru`
 --
 ALTER TABLE `permintaan_barang_out`
   ADD PRIMARY KEY (`id_permintaan_brg_out`);
+
+  ALTER TABLE `permintaan_barang_in`
+  ADD PRIMARY KEY (`id_permintaan_brg_in`);
 
 --
 -- Indexes for table `safety_stok`
@@ -413,6 +441,10 @@ ALTER TABLE `pengajuan_barang_baru`
 --
 ALTER TABLE `permintaan_barang_out`
   MODIFY `id_permintaan_brg_out` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+
+  ALTER TABLE `permintaan_barang_in`
+  MODIFY `id_permintaan_brg_in` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `safety_stok`

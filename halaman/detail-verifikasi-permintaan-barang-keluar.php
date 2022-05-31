@@ -9,7 +9,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
     include 'template/head.php';
     $your_id = $_SESSION['id_user'];
     $id_prt_brd = $_GET['id'];
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -17,20 +17,21 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- Navbar -->
             <?php include 'template/navbar.php'; ?>
             <?php if (isset($_GET['detail'])) {
-                    $sql = 'SELECT * FROM detail_permintaan_out WHERE md5(kode_permintaan_brg_out)="' . $_GET['detail'] . '"';
-                    $i = 1;
-                    $query = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($query) > 0) {
-                        while ($row = mysqli_fetch_assoc($query)) {
-                            $id_detail_permintaan_out           = $row['id_detail_permintaan_out'];
-                            $kode_permintaan_brg_out            = $row['kode_permintaan_brg_out'];
-                            $id_barang                          = $row['id_barang'];
-                            $jumlah_permintaan_barang_out       = $row['jumlah_permintaan_barang_out'];
-                            $status_detail_permintaan_out       = $row['status_detail_permintaan_out'];
-                        }
-                    } else { }
+                $sql = 'SELECT * FROM detail_permintaan_out WHERE md5(kode_permintaan_brg_out)="' . $_GET['detail'] . '"';
+                $i = 1;
+                $query = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($query) > 0) {
+                    while ($row = mysqli_fetch_assoc($query)) {
+                        $id_detail_permintaan_out           = $row['id_detail_permintaan_out'];
+                        $kode_permintaan_brg_out            = $row['kode_permintaan_brg_out'];
+                        $id_barang                          = $row['id_barang'];
+                        $jumlah_permintaan_barang_out       = $row['jumlah_permintaan_barang_out'];
+                        $status_detail_permintaan_out       = $row['status_detail_permintaan_out'];
+                    }
+                } else {
                 }
-                ?>
+            }
+            ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -54,22 +55,21 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                         <div class="row">
                             <div class="col-12 col-sm-12">
                                 <?php
-                                    $cek_status_ya = "SELECT * FROM detail_permintaan_out WHERE kode_permintaan_brg_out = '$kode_permintaan_brg_out'";
-                                    $query_cek_status_ya = mysqli_query($conn, $cek_status_ya);
-                                    while ($get_aja = mysqli_fetch_array($query_cek_status_ya)) {
+                                $cek_status_ya = "SELECT * FROM detail_permintaan_out WHERE kode_permintaan_brg_out = '$kode_permintaan_brg_out'";
+                                $query_cek_status_ya = mysqli_query($conn, $cek_status_ya);
+                                while ($get_aja = mysqli_fetch_array($query_cek_status_ya)) {
 
-                                        $a = $get_aja['status_detail_permintaan_out'];
-                                    
-                                        if ($a == 0) {
-                                            $cek_but_sts = 'disabled';
-                                        } else {
-                                            $cek_but_sts = '';
-                                        }
+                                    $a = $get_aja['status_detail_permintaan_out'];
 
+                                    if ($a == 0) {
+                                        $cek_but_sts = 'disabled';
+                                    } else {
+                                        $cek_but_sts = '';
                                     }
+                                }
                                 ?>
 
-                                <a href="config/add-verifikasi-permintaan.php?id=<?php echo $id_prt_brd; ?>">
+                                <a href="config/add-verifikasi-permintaan_out.php?id=<?php echo $id_prt_brd; ?>">
                                     <button <?php echo $cek_but_sts; ?> type="submit" class="btn btn-success" name="save_verifikasi" value="<?php echo $id_prt_brd; ?>">
                                         <i class="fa fa-save"></i> Konfirmasi Hasil Verfikasi
                                     </button>
@@ -113,45 +113,45 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $sql = "SELECT a.*, us.nama_user, b.nama_barang, b.no_serial, b.jumlah_barang, c.nama_jenis_barang, ot.id_permintaan_brg_out
+                                                $sql = "SELECT a.*, us.nama_user, b.nama_barang, b.no_serial, b.jumlah_barang, c.nama_jenis_barang, ot.id_permintaan_brg_out
                                                     FROM permintaan_barang_out ot JOIN users us ON ot.id_user = us.id_user
                                                     JOIN detail_permintaan_out a ON ot.kode_permintaan_brg_out = a.kode_permintaan_brg_out
                                                     JOIN barang b ON a.id_barang = b.id_barang
                                                     JOIN jenis_barang c ON b.id_jenis_barang = c.id_jenis_barang
                                                     WHERE a.kode_permintaan_brg_out = '$kode_permintaan_brg_out'";
-                                                    $i = 1;
-                                                    $query = mysqli_query($conn, $sql);
-                                                    if (mysqli_num_rows($query) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($query)) {
+                                                $i = 1;
+                                                $query = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($query) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($query)) {
 
-                                                            $cek_sty_empety = "SELECT id_barang AS cek_id, hasil_sty FROM safety_stok WHERE id_barang = $row[id_barang]";
-                                                            $query_cek_sty_empety = mysqli_query($conn, $cek_sty_empety);
-                                                            $row_empety = mysqli_fetch_array($query_cek_sty_empety);
+                                                        $cek_sty_empety = "SELECT id_barang AS cek_id, hasil_sty FROM safety_stok WHERE id_barang = $row[id_barang]";
+                                                        $query_cek_sty_empety = mysqli_query($conn, $cek_sty_empety);
+                                                        $row_empety = mysqli_fetch_array($query_cek_sty_empety);
 
-                                                            $hasil_cek_sty = $row_empety['hasil_sty'];
-                                                            $hasil_cek_id = $row_empety['cek_id'];
+                                                        $hasil_cek_sty = $row_empety['hasil_sty'];
+                                                        $hasil_cek_id = $row_empety['cek_id'];
 
-                                                            if ($hasil_cek_id == null) {
-                                                                $safetyStok = 'Belum Ada Safety Stok';
-                                                            } else {
-                                                                $safetyStok = $hasil_cek_sty;
-                                                            }
+                                                        if ($hasil_cek_id == null) {
+                                                            $safetyStok = 'Belum Ada Safety Stok';
+                                                        } else {
+                                                            $safetyStok = $hasil_cek_sty;
+                                                        }
 
-                                                            if ($row['status_detail_permintaan_out'] == 0) {
-                                                                $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                            } elseif ($row['status_detail_permintaan_out'] == 1) {
-                                                                $verifikasi = '<span class="right badge badge-success">Approved</span>';
-                                                            } else {
-                                                                $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
-                                                            }
+                                                        if ($row['status_detail_permintaan_out'] == 0) {
+                                                            $verifikasi = '<span class="right badge badge-warning">Panding</span>';
+                                                        } elseif ($row['status_detail_permintaan_out'] == 1) {
+                                                            $verifikasi = '<span class="right badge badge-success">Approved</span>';
+                                                        } else {
+                                                            $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
+                                                        }
 
-                                                            if ($row['status_detail_permintaan_out'] == 1 || $row['status_detail_permintaan_out'] == 2) {
-                                                                $but = 'disabled';
-                                                            } else {
-                                                                $but = '';
-                                                            } 
+                                                        if ($row['status_detail_permintaan_out'] == 1 || $row['status_detail_permintaan_out'] == 2) {
+                                                            $but = 'disabled';
+                                                        } else {
+                                                            $but = '';
+                                                        }
 
-                                                            echo '<tr>
+                                                        echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['no_serial'] . '</td>
                                                             <td align="">' . $row['nama_jenis_barang'] . '</td>
@@ -162,7 +162,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             <td align="center">' . $verifikasi . '</td>
                                                             <td align="center" style="">
                                                                 <center>
-                                                                    <button '. $but.' type="bitton" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#id_detail' . md5($row['id_detail_permintaan_out']) . '">
+                                                                    <button ' . $but . ' type="bitton" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#id_detail' . md5($row['id_detail_permintaan_out']) . '">
                                                                         <i class="fa fa-cog"></i>
                                                                     </button>
                                                                 </center>
@@ -177,7 +177,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
                                                                     </div>
-                                                                    <form method="POST" action="config/add-verifikasi-permintaan.php">
+                                                                    <form method="POST" action="config/add-verifikasi-permintaan_out.php">
                                                                         <div class="modal-body">
                                                                             <input type="text" class="form-control" id="" placeholder="" name="kode_permintaan_brg_out" value="' . $row['kode_permintaan_brg_out'] . '" hidden required>
                                                                             <input type="text" class="form-control" id="" placeholder="" name="id_permintaan_brg_out" value="' . $row['id_permintaan_brg_out'] . '" hidden required>
@@ -226,9 +226,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                            
                                                             </tr>
                                                             ';
-                                                        }
-                                                    } else { }
-                                                    ?>
+                                                    }
+                                                } else {
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -251,34 +252,34 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-        <?php include 'template/script.php'; 
-            if (isset($_GET['acc']) or isset($_GET['tidakacc']) or isset($_GET['save'])) {
-                if ($_GET['acc'] == "sukses") {
-                    echo '
+        <?php include 'template/script.php';
+        if (isset($_GET['acc']) or isset($_GET['tidakacc']) or isset($_GET['save'])) {
+            if ($_GET['acc'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Permintaan berhasil diverifikasi.");
                     </script>
                     ';
-                } elseif ($_GET['tidakacc'] == "sukses") {
-                    echo '
+            } elseif ($_GET['tidakacc'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Permintaan berhasil <b>TIDAK</b> diverifikasi.");
                     </script>
                     ';
-                } elseif ($_GET['save'] == "sukses") {
-                    echo '
+            } elseif ($_GET['save'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Verifikasi berhasil disimpan.");
                     </script>
                     ';
-                } else {
-                    echo '
+            } else {
+                echo '
                     <script type="text/javascript">
                     toastr.error("Permintaan Anda gagal diproses.");
                     </script>
                     ';
-                }
-            } ?>
+            }
+        } ?>
     </body>
 <?php } ?>
 

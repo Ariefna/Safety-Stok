@@ -40,15 +40,15 @@ if (mysqli_num_rows($query) > 0) {
     <span class="brand-text font-weight-light">
       <?php
       if ($_SESSION['type'] == 0) {
-          $type_sts = '<span class="right badge badge-success">Staff Warehouse</span>';
+        $type_sts = '<span class="right badge badge-success">Superadmin</span>';
       } elseif ($_SESSION['type'] == 1) {
-          $type_sts = '<span class="right badge badge-primary">Manajer Depo</span>';
-      } elseif ($_SESSION['type'] == 2) {
-          $type_sts = '<span class="right badge badge-info">Keuangan</span>';
+        $type_sts = '<span class="right badge badge-primary">Admin Cabang</span>';
+      } elseif ($_SESSION['type'] == 3) {
+        $type_sts = '<span class="right badge badge-warning">pimpinan</span>';
       } else {
-          $type_sts = '<span class="right badge badge-warning">Karyawan Inti</span>';
+        $type_sts = '<span class="right badge badge-info">Gudang</span>';
       }
-       ?>
+      ?>
       <h6 style="margin:5px"><?php echo $type_sts; ?></h6>
     </span>
   </a>
@@ -93,70 +93,6 @@ if (mysqli_num_rows($query) > 0) {
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="menu-data-safety-stok.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Data Safety Stok
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="menu-verifikasi-permintaan.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Verifikasi Permintaan Out
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="menu-verifikasi-peminjaman.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Verifikasi Peminjaman
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="menu-pengembalian-barang.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pengembalian Pinjaman
-              </p>
-            </a>
-          </li>
-        <?php } ?>
-        <?php if ($_SESSION['type'] == 1) { ?>
-          <li class="nav-header">MANAJER DEPO</li>
-          <li class="nav-item">
-            <a href="menu-verifikasi-barang.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Verifikasi Barang Baru
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="menu-verifikasi-po.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Verifikasi Barang PO
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="menu-verifikasi-restok-barang.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Verifikasi Restok Barang
-              </p>
-            </a>
-          </li>
-        <?php } ?>
-        <?php if ($_SESSION['type'] == 2) { ?>
-          <li class="nav-header">KEUANGAN</li>
-        <?php } ?>
-        <?php if ($_SESSION['type'] == 0 || $_SESSION['type'] == 1 || $_SESSION['type'] == 2) { ?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -181,19 +117,10 @@ if (mysqli_num_rows($query) > 0) {
                 </a>
               </li>
             </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="laporan-stok-barang.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Stok Barang</p>
-                </a>
-              </li>
-            </ul>
           </li>
         <?php } ?>
-
-        <?php if ($_SESSION['type'] == 3) { ?>
-          <li class="nav-header">KARYAWAN INTI</li>
+        <?php if ($_SESSION['type'] == 1) { ?>
+          <li class="nav-header">Admin Cabang</li>
           <li class="nav-item">
             <a href="menu-permintaan-brg-keluar.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
@@ -203,10 +130,76 @@ if (mysqli_num_rows($query) > 0) {
             </a>
           </li>
           <li class="nav-item">
-            <a href="menu-peminjaman.php" class="nav-link">
+            <a href="menu-permintaan-brg-masuk.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Peminjaman Barang Keluar
+                Permintaan Barang Masuk
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="menu-safetystok-brg.php" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Safety Stok
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Laporan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="laporan-barang-masuk.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Barang Masuk</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="laporan-barang-keluar.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Barang Keluar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        <?php } ?>
+        <?php if ($_SESSION['type'] == 2) { ?>
+
+          <li class="nav-header">Gudang</li>
+          <li class="nav-item">
+            <a href="menu-verifikasi-permintaan_gudang_out.php" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Kirim Barang
+              </p>
+            </a>
+          </li>
+        <?php } ?>
+
+        <?php if ($_SESSION['type'] == 3) { ?>
+
+          <li class="nav-header">Kepala</li>
+          <li class="nav-item">
+            <a href="menu-verifikasi-permintaan_out.php" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Verifikasi Permintaan Barang Keluar
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="menu-verifikasi-permintaan_in.php" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Verifikasi Permintaan Barang Masuk
               </p>
             </a>
           </li>

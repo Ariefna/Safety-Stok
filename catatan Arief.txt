@@ -1,0 +1,20 @@
+(superadmin)
+menu data karyawan
+menu satuan barang
+menu data barang
+menu laporan barang masuk keluar
+(admin cabang)
+menu restok barang - 
+menu pengurangan stok barang/pemakaian barang
+menu laporan barang masuk keluar
+(pimpinan)
+menu approve restok barang
+menu laporan barang masuk keluar
+(gudang)
+menu pengiriman barang, sudah dikirim x
+jika sudah disetujui stok bertambah x
+user 
+- superadmin
+- admin cabang
+- gudang
+- pimpinan

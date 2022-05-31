@@ -1,0 +1,146 @@
+//superadmin
+<li class="nav-header">WAREHOUSE</li>
+<li class="nav-item">
+    <a href="menu-data-karyawan.php" class="nav-link">
+        <i class="nav-icon fas fa-users"></i>
+        <p>
+            Data Karyawan
+        </p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="menu-data-satuan-barang.php" class="nav-link">
+        <i class="nav-icon fas fa-book"></i>
+        <p>
+            Data Satuan Barang
+        </p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="menu-data-barang.php" class="nav-link">
+        <i class="nav-icon fas fa-book"></i>
+        <p>
+            Data Barang
+        </p>
+    </a>
+</li>
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-copy"></i>
+        <p>
+            Laporan
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="laporan-barang-masuk.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Laporan Barang Masuk</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="laporan-barang-keluar.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Laporan Barang Keluar</p>
+            </a>
+        </li>
+    </ul>
+</li>
+//admin cabang
+<li class="nav-header">Admin Cabang</li>
+
+<li class="nav-item">
+    <a href="menu-data-safety-stok.php" class="nav-link">
+        <i class="nav-icon fas fa-book"></i>
+        <p>
+            Data Safety Stok
+        </p>
+    </a>
+</li>
+ <li class="nav-item">
+            <a href="menu-permintaan-brg-keluar.php" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Permintaan Barang Keluar
+              </p>
+            </a>
+          </li>
+<li class="nav-item">
+    <a href="menu-peminjaman.php" class="nav-link">
+        <i class="nav-icon fas fa-book"></i>
+        <p>
+            Peminjaman Barang Keluar
+        </p>
+    </a>
+</li>
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-copy"></i>
+        <p>
+            Laporan
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="laporan-barang-masuk.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Laporan Barang Masuk</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="laporan-barang-keluar.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Laporan Barang Keluar</p>
+            </a>
+        </li>
+    </ul>
+</li>
+//pimpinan
+<li class="nav-item">
+            <a href="menu-verifikasi-barang.php" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Verifikasi Barang Baru
+              </p>
+            </a>
+          </li>
+<li class="nav-item">
+    <a href="menu-verifikasi-restok-barang.php" class="nav-link">
+        <i class="nav-icon fas fa-book"></i>
+        <p>
+            Verifikasi Restok Barang
+        </p>
+    </a>
+</li>
+<li class="nav-item has-treeview">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-copy"></i>
+        <p>
+            Laporan
+            <i class="fas fa-angle-left right"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="laporan-barang-masuk.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Laporan Barang Masuk</p>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="laporan-barang-keluar.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Laporan Barang Keluar</p>
+            </a>
+        </li>
+    </ul>
+</li>
+//gudang

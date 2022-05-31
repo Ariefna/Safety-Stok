@@ -42,6 +42,6 @@
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
-    bsCustomFileInput.init();
+    // bsCustomFileInput.init();
   });
 </script>

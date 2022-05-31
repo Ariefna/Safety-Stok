@@ -7,7 +7,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 } else {
     $index = 200;
     include 'template/head.php';
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -49,7 +49,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         <center>NO</center>
                                                     </th>
                                                     <th>
-                                                        <center>Nama Satuan Baran</center>
+                                                        <center>Nama Satuan Barang</center>
                                                     </th>
                                                     <th width="5%">
                                                         <center>Ubah</center>
@@ -61,32 +61,33 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $sql = 'SELECT * FROM satuan_barang';
-                                                    $i = 1;
-                                                    $query = mysqli_query($conn, $sql);
-                                                    if (mysqli_num_rows($query) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($query)) {
+                                                $sql = 'SELECT * FROM satuan_barang';
+                                                $i = 1;
+                                                $query = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($query) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($query)) {
 
-                                                            echo '<tr>
+                                                        echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
 
                                                             <td align="center" style="">
-                                                                <form class="" action="tambah-data-jenis-barang.php" method="GET">
+                                                                <form class="" action="tambah-data-satuan-barang.php" method="GET">
                                                                     <input type="text" name="ubah" value="' . md5($row['id_satuan_barang']) . '" hidden>
                                                                     <button class="btn btn-primary btn-sm" type="submit" name=""><i class="fa fa-edit"></i></button>
                                                                 </form>
                                                             </td>
                                                             <td align="center" style="">
-                                                                <form class="" action="config/add-data-jenis-barang.php" method="GET">
+                                                                <form class="" action="config/add-data-satuan-barang.php" method="GET">
                                                                 <input type="text" name="delete" value="' . md5($row['id_satuan_barang']) . '" hidden>
                                                                 <button class="btn btn-danger btn-sm" type="submit" name=""><i class="fa fa-trash"></i></button>
                                                                 </form>
                                                             </td></tr>
                                                             ';
-                                                        }
-                                                    } else { }
-                                                    ?>
+                                                    }
+                                                } else {
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -110,33 +111,33 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         </div>
         <!-- ./wrapper -->
         <?php include 'template/script.php';
-            if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete'])) {
-                if ($_GET['tambah'] == "sukses") {
-                    echo '
+        if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete'])) {
+            if ($_GET['tambah'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Satuan Baran berhasil ditambahkan.");
                     </script>
                     ';
-                } elseif ($_GET['edit'] == "sukses") {
-                    echo '
+            } elseif ($_GET['edit'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Satuan Baran berhasil diubah.");
                     </script>
                     ';
-                } elseif ($_GET['delete'] == "sukses") {
-                    echo '
+            } elseif ($_GET['delete'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Satuan Baran berhasil dihapus.");
                     </script>
                     ';
-                } else {
-                    echo '
+            } else {
+                echo '
                     <script type="text/javascript">
                     toastr.error("Permintaan Anda gagal diproses.");
                     </script>
                     ';
-                }
-            } ?>
+            }
+        } ?>
     </body>
 <?php } ?>
 

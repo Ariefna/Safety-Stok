@@ -7,7 +7,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 } else {
     $index = 200;
     include 'template/head.php';
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -47,49 +47,49 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         <center>NO</center>
                                                     </th>
                                                     <th>
-                                                        <center>Tanggal</center>
+                                                        <center>Nama Barang</center>
                                                     </th>
                                                     <th>
-                                                        <center>Status</center>
+                                                        <center>Stok Masuk</center>
                                                     </th>
-                                                    <th>
-                                                        <center>File</center>
-                                                    </th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $sql = 'SELECT * FROM peminjaman_barang
-                                                    WHERE status_peminjaman = 1';
-                                                    $i = 1;
-                                                    $query = mysqli_query($conn, $sql);
-                                                    if (mysqli_num_rows($query) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($query)) {
+                                                $sql = "SELECT a.*, b.nama_barang, b.no_serial, c.nama_satuan_barang
+                                                    FROM detail_permintaan_out a JOIN barang b ON a.id_barang = b.id_barang
+                                                    JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang
+                                                    where status_detail_permintaan_out = 1";
+                                                // echo $sql;
+                                                $i = 1;
+                                                $query = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($query) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($query)) {
 
-                                                            if ($row['status_peminjaman'] == 0) {
-                                                                $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                            } elseif ($row['status_peminjaman'] == 1) {
-                                                                $verifikasi = '<span class="right badge badge-success">Approved</span>';
-                                                            } else {
-                                                                $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
-                                                            }
+                                                        if ($row['status_detail_permintaan_out'] == 0) {
+                                                            $verifikasi = '<span class="right badge badge-warning">Panding</span>';
+                                                        } elseif ($row['status_detail_permintaan_out'] == 1) {
+                                                            $verifikasi = '<span class="right badge badge-success">Approved</span>';
+                                                        } else {
+                                                            $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
+                                                        }
 
-                                                            echo '<tr>
+                                                        if ($row['keterangan_out'] == null) {
+                                                            $keterangannya = '-';
+                                                        } else {
+                                                            $keterangannya = $row['keterangan_out'];
+                                                        }
+
+                                                        echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
-                                                            <td align="center">' . $row['date_peminjaman_start'] . '</td>
-                                                            <td align="center">' . $verifikasi . '</td>
-                                                            <td align="center" style="">
-                                                                <form class="" action="cetak-lp-keluar.php" method="GET">
-                                                                    <input type="text" name="cetak" value="' . $row['date_peminjaman_start'] . '" hidden>
-                                                                    <button class="btn btn-primary btn-sm" type="submit" name=""><i class="fa fa-file"></i></button>
-                                                                </form>
-                                                            </td>
+                                                            <td align="">' . $row['nama_barang'] . '</td>
+                                                            <td align="center">' . $row['jumlah_disetujui_out'] . '</td>
                                                             </tr>
                                                             ';
-                                                        }
-                                                    } else { }
-                                                    ?>
+                                                    }
+                                                } else {
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -113,7 +113,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         </div>
         <!-- ./wrapper -->
         <?php include 'template/script.php';
-            ?>
+        ?>
     </body>
 <?php } ?>
 

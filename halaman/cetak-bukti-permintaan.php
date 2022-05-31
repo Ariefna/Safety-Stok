@@ -13,13 +13,13 @@ $que = mysqli_query($conn, $slc);
 $data_slc = mysqli_fetch_array($que);
 
 if ($data_slc['type_user'] == 0) {
-    $jabatan = 'Warehouse';
+    $jabatan = 'Superadmin';
 } elseif ($data_slc['type_user'] == 1) {
-    $jabatan = 'Manajer Depo';
+    $jabatan = 'Admin Cabang';
 } elseif ($data_slc['type_user'] == 2) {
-    $jabatan = 'Keuangan';
+    $jabatan = 'gudang';
 } else {
-    $jabatan = 'Staff Inti';
+    $jabatan = 'pimpinan';
 }
 
 date_default_timezone_set('Asia/Jakarta');
@@ -160,7 +160,8 @@ function tgl_indo($tanggal)
                                         </tr>
                                             ';
                                 }
-                            } else { }
+                            } else {
+                            }
                             ?>
                         </tbody>
                     </table>
@@ -185,7 +186,7 @@ function tgl_indo($tanggal)
                                 <th style="width:50%">Total Harga:</th>
                                 <td>Rp. <?php echo $data_slc['harga']; ?></td>
                             </tr>
-                           
+
                         </table>
                     </div>
                 </div>

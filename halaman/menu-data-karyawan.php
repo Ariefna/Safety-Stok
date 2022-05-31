@@ -7,7 +7,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 } else {
     $index = 200;
     include 'template/head.php';
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -73,22 +73,22 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $sql = 'SELECT * FROM users';
-                                                    $i = 1;
-                                                    $query = mysqli_query($conn, $sql);
-                                                    if (mysqli_num_rows($query) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($query)) {
-                                                            if ($row['type_user'] == 0) {
-                                                                $type_sts = '<span class="right badge badge-success">Staff Warehouse</span>';
-                                                            } elseif ($row['type_user'] == 1) {
-                                                                $type_sts = '<span class="right badge badge-primary">Manajer Depo</span>';
-                                                            } elseif ($row['type_user'] == 2) {
-                                                                $type_sts = '<span class="right badge badge-info">Keuangan</span>';
-                                                            } else {
-                                                                $type_sts = '<span class="right badge badge-warning">Karyawan Inti</span>';
-                                                            }
+                                                $sql = 'SELECT * FROM users';
+                                                $i = 1;
+                                                $query = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($query) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($query)) {
+                                                        if ($row['type_user'] == 0) {
+                                                            $type_sts = '<span class="right badge badge-success">Superadmin</span>';
+                                                        } elseif ($row['type_user'] == 1) {
+                                                            $type_sts = '<span class="right badge badge-primary">Admin Cabang</span>';
+                                                        } elseif ($row['type_user'] == 2) {
+                                                            $type_sts = '<span class="right badge badge-info">Gudang</span>';
+                                                        } else {
+                                                            $type_sts = '<span class="right badge badge-warning">pimpinan</span>';
+                                                        }
 
-                                                            echo '<tr>
+                                                        echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['nama_user'] . '</td>
                                                             <td align="">' . $row['alamat_user'] . '</td>
@@ -108,9 +108,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                                 </form>
                                                             </td></tr>
                                                             ';
-                                                        }
-                                                    } else { }
-                                                    ?>
+                                                    }
+                                                } else {
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -134,33 +135,33 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         </div>
         <!-- ./wrapper -->
         <?php include 'template/script.php';
-            if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete'])) {
-                if ($_GET['tambah'] == "sukses") {
-                    echo '
+        if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete'])) {
+            if ($_GET['tambah'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Karyawan berhasil ditambahkan.");
                     </script>
                     ';
-                } elseif ($_GET['edit'] == "sukses") {
-                    echo '
+            } elseif ($_GET['edit'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Karyawan berhasil diubah.");
                     </script>
                     ';
-                } elseif ($_GET['delete'] == "sukses") {
-                    echo '
+            } elseif ($_GET['delete'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Karyawan berhasil dihapus.");
                     </script>
                     ';
-                } else {
-                    echo '
+            } else {
+                echo '
                     <script type="text/javascript">
                     toastr.error("Permintaan Anda gagal diproses.");
                     </script>
                     ';
-                }
-            } ?>
+            }
+        } ?>
     </body>
 <?php } ?>
 

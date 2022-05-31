@@ -18,11 +18,14 @@ if (isset($_POST['simpan'])) {
         $set_master = $conn->query($sql_master);
 
         $count = count($id_barang);
-        $sqlc = "INSERT INTO detail_permintaan_out (kode_permintaan_brg_out, id_barang, jumlah_permintaan_barang_out) VALUES ";
+        $sqlc = "INSERT INTO detail_permintaan_out (kode_permintaan_brg_out, id_barang, jumlah_disetujui_out, keterangan_out, status_detail_permintaan_out, jumlah_permintaan_barang_out) VALUES ";
         for ($i = 0; $i < $count; $i++) {
             $sqlc .= "(
                     '{$kode_permintaan_brg_out}',
                     '{$id_barang[$i]}',
+                    '0',
+                    '',
+                    '0',
                     '{$jumlah_permintaan_barang_out[$i]}')";
             $sqlc .= ",";
         }
@@ -30,8 +33,23 @@ if (isset($_POST['simpan'])) {
         $sqlc = rtrim($sqlc, ",");
         $insert = $conn->query($sqlc);
 
+        // if ($insert) {
+        //     echo ("<META HTTP-EQUIV=\"Refresh\"CONTENT=\"0;URL=../menu-permintaan-brg-keluar.php\">");
+        // }
+
         if ($insert) {
-            echo ("<META HTTP-EQUIV=\"Refresh\"CONTENT=\"0;URL=../menu-permintaan-brg-keluar.php\">");
+            echo '
+            <script type="text/javascript">
+                document.location = "../menu-permintaan-brg-keluar.php?tambah=sukses";
+            </script>
+            ';
+        } else {
+            echo 'sini';
+            echo '
+            <script type="text/javascript">
+                toastr.error("Permintaan Anda gagal diproses.");
+            </script>
+            ';
         }
     }
 }

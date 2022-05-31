@@ -7,7 +7,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 } else {
     $index = 0;
     include 'template/head.php';
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -15,33 +15,34 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- Navbar -->
             <?php include 'template/navbar.php'; ?>
             <?php if (isset($_GET['ubah'])) {
-                    $sql = 'SELECT * FROM users WHERE md5(id_user)="' . $_GET['ubah'] . '"';
-                    $i = 1;
-                    $query = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($query) > 0) {
-                        while ($row = mysqli_fetch_assoc($query)) {
-                            $id_user        = $row['id_user'];
-                            $nama_user      = $row['nama_user'];
-                            $alamat_user    = $row['alamat_user'];
-                            $telepon_user   = $row['telepon_user'];
-                            $email_user     = $row['email_user'];
-                            $username       = $row['username'];
-                            $password       = $row['password'];
-                            $type_user      = $row['type_user'];
-                        }
-                    } else { }
+                $sql = 'SELECT * FROM users WHERE md5(id_user)="' . $_GET['ubah'] . '"';
+                $i = 1;
+                $query = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($query) > 0) {
+                    while ($row = mysqli_fetch_assoc($query)) {
+                        $id_user        = $row['id_user'];
+                        $nama_user      = $row['nama_user'];
+                        $alamat_user    = $row['alamat_user'];
+                        $telepon_user   = $row['telepon_user'];
+                        $email_user     = $row['email_user'];
+                        $username       = $row['username'];
+                        $password       = $row['password'];
+                        $type_user      = $row['type_user'];
+                    }
                 } else {
-
-                    $id_user        = 0;
-                    $nama_user      = "";
-                    $alamat_user    = "";
-                    $telepon_user   = "";
-                    $email_user     = "";
-                    $username       = "";
-                    $password       = "";
-                    $type_user      = "";
                 }
-                ?>
+            } else {
+
+                $id_user        = 0;
+                $nama_user      = "";
+                $alamat_user    = "";
+                $telepon_user   = "";
+                $email_user     = "";
+                $username       = "";
+                $password       = "";
+                $type_user      = "";
+            }
+            ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -117,10 +118,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                 <div class="col-sm-10">
                                                     <select class="form-control" name="type_user">
                                                         <option value="" selected disabled>- Pilih Jabatan -</option>
-                                                        <option value="0" <?php echo $type_user == 0 ? "selected='selected'" : ""; ?>>Staff Wirehouse</option>
-                                                        <option value="1" <?php echo $type_user == 1 ? "selected='selected'" : ""; ?>>Manajer Depo</option>
-                                                        <option value="2" <?php echo $type_user == 2 ? "selected='selected'" : ""; ?>>Keuangan</option>
-                                                        <option value="3" <?php echo $type_user == 3 ? "selected='selected'" : ""; ?>>Karyawan Inti</option>
+                                                        <option value="0" <?php echo $type_user == 0 ? "selected='selected'" : ""; ?>>Superadmin</option>
+                                                        <option value="1" <?php echo $type_user == 1 ? "selected='selected'" : ""; ?>>Admin Cabang</option>
+                                                        <option value="2" <?php echo $type_user == 2 ? "selected='selected'" : ""; ?>>Gudang</option>
+                                                        <option value="3" <?php echo $type_user == 3 ? "selected='selected'" : ""; ?>>Pimpinan</option>
                                                     </select>
                                                 </div>
 

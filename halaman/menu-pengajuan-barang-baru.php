@@ -7,7 +7,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 } else {
     $index = 200;
     include 'template/head.php';
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -53,7 +53,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <th>
                                                         <center>Tanggal Pengajuan</center>
                                                     </th>
-                                                    
+
                                                     <th>
                                                         <center>Status</center>
                                                     </th>
@@ -64,34 +64,34 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $sql = 'SELECT * FROM pengajuan_barang_baru WHERE status_pengajuan IN (0,1)';
-                                                    $i = 1;
-                                                    $query = mysqli_query($conn, $sql);
-                                                    if (mysqli_num_rows($query) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($query)) {
+                                                $sql = 'SELECT * FROM pengajuan_barang_baru WHERE status_pengajuan IN (0,1)';
+                                                $i = 1;
+                                                $query = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($query) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($query)) {
 
 
 
-                                                            if ($row['status_pengajuan'] == 0) {
-                                                                $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                                $but = 'hidden';
-                                                            } elseif ($row['status_pengajuan'] == 1 ) {
-                                                                $verifikasi = '<span class="right badge badge-success">Sudah Dievaluasi</span>';
-                                                                $but = '';
-                                                            } else {
-                                                                $verifikasi = '<span class="right badge badge-danger">Sudah Dievaluasi</span>';
-                                                                $but = '';
-                                                            }
+                                                        if ($row['status_pengajuan'] == 0) {
+                                                            $verifikasi = '<span class="right badge badge-warning">Panding</span>';
+                                                            $but = 'hidden';
+                                                        } elseif ($row['status_pengajuan'] == 1) {
+                                                            $verifikasi = '<span class="right badge badge-success">Sudah Dievaluasi</span>';
+                                                            $but = '';
+                                                        } else {
+                                                            $verifikasi = '<span class="right badge badge-danger">Sudah Dievaluasi</span>';
+                                                            $but = '';
+                                                        }
 
-                                                            if ($row['status_pengajuan'] == 0) {
-                                                                $but1 = '';
-                                                            } else {
-                                                                $but1 = '';
-                                                            }
+                                                        if ($row['status_pengajuan'] == 0) {
+                                                            $but1 = '';
+                                                        } else {
+                                                            $but1 = '';
+                                                        }
 
-                                                          
 
-                                                            echo '<tr>
+
+                                                        echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['no_request'] . '</td>
                                                             <td align="">' . $row['tanggal_pengajuan'] . '</td>
@@ -114,9 +114,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             </tr>
 
                                                             ';
-                                                        }
-                                                    } else { }
-                                                    ?>
+                                                    }
+                                                } else {
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -140,45 +141,45 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         </div>
         <!-- ./wrapper -->
         <?php include 'template/script.php';
-            if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete']) or isset($_GET['simpan'])) {
-                if ($_GET['tambah'] == "sukses") {
-                    echo '
+        if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete']) or isset($_GET['simpan'])) {
+            if ($_GET['tambah'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Barang berhasil ditambahkan.");
                     </script>
                     ';
-                } elseif ($_GET['edit'] == "sukses") {
-                    echo '
+            } elseif ($_GET['edit'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Barang berhasil diubah.");
                     </script>
                     ';
-                } elseif ($_GET['delete'] == "sukses") {
-                    echo '
+            } elseif ($_GET['delete'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Barang berhasil dihapus.");
                     </script>
                     ';
-                } elseif ($_GET['simpan'] == "sukses") {
-                    echo '
+            } elseif ($_GET['simpan'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Data Barang berhasil disimpan.");
                     </script>
                     ';
-                } elseif ($_GET['update_foto_ya'] == "sukses") {
-                    echo '
+            } elseif ($_GET['update_foto_ya'] == "sukses") {
+                echo '
                     <script type="text/javascript">
                     toastr.success("Update Foto Barang berhasil disimpan.");
                     </script>
                     ';
-                } else {
-                    echo '
+            } else {
+                echo '
                     <script type="text/javascript">
                     toastr.error("Permintaan Anda gagal diproses.");
                     </script>
                     ';
-                }
-            } ?>
+            }
+        } ?>
     </body>
 <?php } ?>
 
