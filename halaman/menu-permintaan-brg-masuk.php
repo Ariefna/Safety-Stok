@@ -122,19 +122,19 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             if ($_GET['tambah'] == "sukses") {
                 echo '
                     <script type="text/javascript">
-                    toastr.success("Data Peminjaman berhasil ditambahkan.");
+                    toastr.success("Data Permintaan berhasil ditambahkan.");
                     </script>
                     ';
             } elseif ($_GET['edit'] == "sukses") {
                 echo '
                     <script type="text/javascript">
-                    toastr.success("Data Peminjaman berhasil diubah.");
+                    toastr.success("Data Permintaan berhasil diubah.");
                     </script>
                     ';
             } elseif ($_GET['delete'] == "sukses") {
                 echo '
                     <script type="text/javascript">
-                    toastr.success("Data Peminjaman berhasil dihapus.");
+                    toastr.success("Data Permintaan berhasil dihapus.");
                     </script>
                     ';
             } else {

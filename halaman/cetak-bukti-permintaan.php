@@ -55,7 +55,7 @@ function tgl_indo($tanggal)
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PT. SAMUDERA SARANA LOGISTIK SURABAYA | Order Print</title>
+    <title>PT. INDONESIA BERKAH MANDIRI | Order Print</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap 4 -->

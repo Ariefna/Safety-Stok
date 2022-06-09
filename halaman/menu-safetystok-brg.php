@@ -81,10 +81,11 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = 'SELECT a.*, b.nama_satuan_barang, COALESCE((avg(j.jumlah_disetujui_out)*2) ,0) "safetystok" FROM barang a 
-                                                JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang 
-                                                JOIN detail_permintaan_out j ON a.id_barang = j.id_barang
-                                                having (avg(j.jumlah_disetujui_out)*2) > 0';
+                                                $sql = 'SELECT a.*, b.nama_satuan_barang, COALESCE((COALESCE((select avg(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0)*2) ,0) "safetystok", COALESCE((select sum(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0) keluar, COALESCE((select sum(jumlah_disetujui_in) "masuk" from detail_permintaan_in where id_barang = a.id_barang group by id_barang),0) masuk FROM barang a 
+                                                JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang
+                                                group by a.id_barang
+                                                having (COALESCE((COALESCE((select avg(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0)*2) ,0)) > (COALESCE((COALESCE((select sum(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0)*2) ,0)+COALESCE((COALESCE((select sum(jumlah_disetujui_in) "masuk" from detail_permintaan_in where id_barang = a.id_barang group by id_barang),0)*2) ,0))';
+                                                // echo $sql;
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {
@@ -171,7 +172,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['no_request'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
-                                                            <td align="">' . $row['jumlah_barang'] . '</td>
+                                                            <td align="">' . ($row['jumlah_barang'] + $row['masuk'] - $row['keluar']) . '</td>
                                                             <td align="">' . $safetystok . '</td>
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
                                                             <td align="">' . $row['keterangan_barang'] . '</td>

@@ -9,9 +9,10 @@ if (isset($_POST['simpan'])) {
         $kode_permintaan_brg_out        = $_POST['kode_permintaan_brg_out'];
         $id_barang                      = $_POST['id_barang'];
         $jumlah_permintaan_barang_out   = $_POST['jumlah_permintaan_barang_out'];
+        $tanggal_permintaan_barang_out   = $_POST['tanggal_permintaan_barang_out'];
 
         date_default_timezone_set('Asia/Jakarta');
-        $date_request = date('Y-m-d');
+        $date_request = $tanggal_permintaan_barang_out;
 
         $sql_master = "INSERT INTO permintaan_barang_out (kode_permintaan_brg_out, date_permintaan_brg_out, id_user, status_permintaan_brg_out) VALUES 
         ('$kode_permintaan_brg_out','$date_request','$id_user',0)";

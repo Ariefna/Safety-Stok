@@ -113,11 +113,11 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = "SELECT a.*, us.nama_user, b.nama_barang, b.no_serial, b.jumlah_barang, c.nama_jenis_barang, ot.id_permintaan_brg_out
+                                                $sql = "SELECT a.*, us.nama_user, b.nama_barang, b.no_serial, b.jumlah_barang, c.nama_satuan_barang, ot.id_permintaan_brg_out
                                                     FROM permintaan_barang_out ot JOIN users us ON ot.id_user = us.id_user
                                                     JOIN detail_permintaan_out a ON ot.kode_permintaan_brg_out = a.kode_permintaan_brg_out
                                                     JOIN barang b ON a.id_barang = b.id_barang
-                                                    JOIN jenis_barang c ON b.id_jenis_barang = c.id_jenis_barang
+                                                    JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang
                                                     WHERE a.kode_permintaan_brg_out = '$kode_permintaan_brg_out'";
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
@@ -154,7 +154,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['no_serial'] . '</td>
-                                                            <td align="">' . $row['nama_jenis_barang'] . '</td>
+                                                            <td align="">' . $row['nama_satuan_barang'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
                                                             <td align="center">' . $row['jumlah_permintaan_barang_out'] . '</td>
                                                             <td align="center">' . $row['jumlah_barang'] . '</td>

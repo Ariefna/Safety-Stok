@@ -37,7 +37,7 @@ function tgl_indo($tanggal)
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PT. SAMUDERA SARANA LOGISTIK SURABAYA | Laporan Print</title>
+    <title>PT. INDONESIA BERKAH MANDIRI | Laporan Print</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap 4 -->
@@ -61,7 +61,7 @@ function tgl_indo($tanggal)
             <div class="row">
                 <div class="col-12">
                     <h4 class="page-header">
-                        <i class=""></i> PT. SAMUDERA SARANA LOGISTIK SURABAYA
+                        <i class=""></i> PT. INDONESIA BERKAH MANDIRI
                         <small class="float-right"> Tanggal : <?php echo tgl_indo($date_now); ?></small>
                     </h4>
                 </div>
@@ -122,7 +122,7 @@ function tgl_indo($tanggal)
                                 <th>
                                     Stok
                                 </th>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
@@ -146,7 +146,8 @@ function tgl_indo($tanggal)
                                         </tr>
                                             ';
                                 }
-                            } else { }
+                            } else {
+                            }
                             ?>
                         </tbody>
                     </table>

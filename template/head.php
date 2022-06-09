@@ -8,7 +8,7 @@ include 'template/koneksi.php';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>PT. SAMUDERA SARANA LOGISTIK SURABAYA</title>
+  <title>PT. INDONESIA BERKAH MANDIRI</title>
   <!-- Tell the browser to be responsive to screen width -->
 
   <!-- Favicons -->

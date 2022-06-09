@@ -75,13 +75,14 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <th width="5%">
                                                         <center>Hapus</center>
                                                     </th>
+                                                    <th width="5%">
+                                                        <center>Ubah</center>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = 'SELECT a.*, b.nama_satuan_barang
-                                                    FROM barang a JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang
-                                                    ';
+                                                $sql = 'SELECT a.*, b.nama_satuan_barang, COALESCE((select sum(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0) keluar, COALESCE((select sum(jumlah_disetujui_in) "masuk" from detail_permintaan_in where id_barang = a.id_barang group by id_barang),0) masuk FROM barang a JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang';
 
                                                 // $sql = 'SELECT a.*, b.nama_satuan_barang
                                                 // FROM barang a JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang
@@ -92,6 +93,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
 
                                                         $id_br = $row['id_barang'];
+                                                        $sumarynya = $row['jumlah_barang'] - $row['keluar'] + $row['masuk'];
 
                                                         $sql_sty = "SELECT i.id_barang, i.jumlah_barang AS jml_stok, avg(j.jumlah_barang) AS jml_pinjam_rata, max(j.jumlah_barang) AS jml_pinjam_max,
                                                             j.status_peminjaman_barang
@@ -169,7 +171,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['no_request'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
-                                                            <td align="">' . $row['jumlah_barang'] . '</td>
+                                                            <td align="">' . $sumarynya . '</td>
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
                                                             <td align="">' . $row['keterangan_barang'] . '</td>
                                                             <td align="">' . $row['catatan_barang'] . '</td>
@@ -186,6 +188,13 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                                 <input type="text" name="delete" value="' . md5($row['id_barang']) . '" hidden>
                                                                 <button class="btn btn-danger btn-sm" type="submit" name=""><i class="fa fa-trash"></i></button>
                                                                 </form>
+                                                            </td>
+                                                            <td>
+                                                            <a href="edit-data-barang-baru.php?ubah=' . md5($row['id_barang']) . '">
+                                                                    <button ' . $but . ' type="submit" class="btn btn-warning btn-sm" name="ubah" id="ubah">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </button>
+                                                                </a>
                                                             </td>
                                                             </tr>
 

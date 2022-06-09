@@ -88,6 +88,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <input type="number" class="form-control" id="" placeholder="ID PERMINTAAN .." name="id_permintaan_brg_out" value="<?php echo $id_permintaan_brg_out; ?>" hidden required>
                                                     <input type="text" class="form-control" id="" name="kode_permintaan_brg_out" value="<?php echo $kode_permintaan_brg_out; ?>" required readonly>
                                                 </div>
+                                                <label for="" class="col-sm-2 col-form-label">Tanggal Permintaan</label>
+                                                <div class="col-sm-10">
+                                                    <input type="date" class="form-control" id="" name="tanggal_permintaan_barang_out" value="<?php echo date("Y-m-d"); ?>" required>
+                                                </div>
                                             </div>
                                             <div id="example-3" class="content">
                                                 <button type="button" id="btnAdd-3" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Barang</button>

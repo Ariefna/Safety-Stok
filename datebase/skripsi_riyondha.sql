@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `skripsi_riyondha`
+ALTER TABLE permintaan_barang_in
+ADD `date_permintaan_brg_deliver_in` date NOT NULL;
 --
 
 -- --------------------------------------------------------
@@ -125,6 +127,8 @@ CREATE TABLE `detail_permintaan_in` (
   `keterangan_in` varchar(200) NOT NULL,
   `status_detail_permintaan_in` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 
 CREATE TABLE `permintaan_barang_in` (
   `id_permintaan_brg_in` int(11) NOT NULL,

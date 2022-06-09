@@ -24,6 +24,8 @@ if (isset($_POST['verifikasi_detail'])) {
     // $sql .= "UPDATE barang SET jumlah_barang = '$hitung' WHERE id_barang = '$id_barang'";
     $query = mysqli_multi_query($conn, $sql);
 
+
+
     if ($query) {
         echo '
         <script type="text/javascript">

@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 
 <html>
-<?php 
-    include '../template/koneksi.php';
+<?php
+include '../template/koneksi.php';
 
-    date_default_timezone_set('Asia/Jakarta');
-    $date_now = date('Y-m-d');
+date_default_timezone_set('Asia/Jakarta');
+$date_now = date('Y-m-d');
 
-    function tgl_indo($tanggal)
-    {
-        $bulan = array(
-            1 =>   'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember'
-        );
-        $pecahkan = explode('-', $tanggal);
+function tgl_indo($tanggal)
+{
+    $bulan = array(
+        1 =>   'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+    $pecahkan = explode('-', $tanggal);
 
-        // variabel pecahkan 0 = tanggal
-        // variabel pecahkan 1 = bulan
-        // variabel pecahkan 2 = tahun
+    // variabel pecahkan 0 = tanggal
+    // variabel pecahkan 1 = bulan
+    // variabel pecahkan 2 = tahun
 
-        return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
-    } 
+    return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
+}
 
 ?>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PT. SAMUDERA SARANA LOGISTIK SURABAYA | Laporan Print</title>
+    <title>PT. INDONESIA BERKAH MANDIRI | Laporan Print</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap 4 -->
@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-12">
                     <h4 class="page-header">
-                        <i class=""></i> PT. SAMUDERA SARANA LOGISTIK SURABAYA
+                        <i class=""></i> PT. INDONESIA BERKAH MANDIRI
                         <small class="float-right"> Tanggal : <?php echo tgl_indo($date_now); ?></small>
                     </h4>
                 </div>
@@ -168,7 +168,8 @@
                                         </tr>
                                             ';
                                 }
-                            } else { }
+                            } else {
+                            }
                             ?>
                         </tbody>
                     </table>

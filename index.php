@@ -25,7 +25,7 @@ if ($date_now != $sub_data) {
   <div class="login-box">
     <div class="login-logo">
       <img src="assets/logo.png" style="width:290px;margin-top:-70px" alt=""><br>
-      <!-- <b>PT. SAMUDERA SARANA LOGISTIK SURABAYA</b> -->
+      <!-- <b>PT. INDONESIA BERKAH MANDIRI</b> -->
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -90,7 +90,7 @@ if ($date_now != $sub_data) {
         } elseif ($_SESSION['type'] == 1) {
           echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-permintaan-brg-keluar.php';</script>";
         } elseif ($_SESSION['type'] == 2) {
-          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan_gudang_out.php';</script>";
+          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan_gudang_in.php';</script>";
         } else {
           echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan_out.php';</script>";
         }

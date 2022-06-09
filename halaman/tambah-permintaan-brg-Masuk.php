@@ -14,7 +14,21 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         <script>
             function getval(sel) {
                 var valuenya = $(sel).find(':selected').attr('data-id');
+                var barang = $(sel).find(':selected').attr('data-barang');
+                // const valueku;
                 $(sel).closest('.group').find('.satuannya').text(valuenya);
+                $.ajax({
+                    method: 'GET',
+                    url: "config/ajax_permintaan_barang_in.php",
+                    data: {
+                        q: barang
+                    },
+                    success: function(data) {
+                        const myObj = JSON.parse(data);
+                        $(sel).closest('.group').find('.jumlah_permintaan_barang_in').val(myObj.stock);
+                    }
+                });
+
             }
         </script>
         <!-- Site wrapper -->
@@ -89,6 +103,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <input type="number" class="form-control" id="" placeholder="ID PERMINTAAN .." name="id_permintaan_brg_in" value="<?php echo $id_permintaan_brg_in; ?>" hidden required>
                                                     <input type="text" class="form-control" id="" name="kode_permintaan_brg_in" value="<?php echo $kode_permintaan_brg_in; ?>" required readonly>
                                                 </div>
+                                                <label for="" class="col-sm-2 col-form-label">Tanggal Permintaan</label>
+                                                <div class="col-sm-10">
+                                                    <input type="date" class="form-control" id="" name="tanggal_permintaan_barang_in" value="<?php echo date("Y-m-d"); ?>" required>
+                                                </div>
                                             </div>
                                             <div id="example-3" class="content">
                                                 <button type="button" id="btnAdd-3" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Barang</button>
@@ -106,16 +124,16 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             WHERE a.status_po = 2 AND b.id_satuan_barang IN (2,3)
                                                             ORDER BY b.nama_satuan_barang ASC");
                                                             while ($data = mysqli_fetch_array($str)) { ?>
-                                                                <option data-id="<?php echo @$data[14]; ?>" value="<?php echo @$data[0]; ?>" <?php if (@$row[0] == @$data[0]) {
-                                                                                                                                                    echo "selected";
-                                                                                                                                                } ?>> <?php echo @$data[2]; ?> - <?php echo @$data[3]; ?> (<?php echo @$data[14]; ?>)</option>
+                                                                <option data-id="<?php echo @$data[14]; ?>" data-barang="<?php echo @$data[0]; ?>" value="<?php echo @$data[0]; ?>" <?php if (@$row[0] == @$data[0]) {
+                                                                                                                                                                                        echo "selected";
+                                                                                                                                                                                    } ?>> <?php echo @$data[2]; ?> - <?php echo @$data[3]; ?> (<?php echo @$data[14]; ?>)</option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
                                                     <label for="" class="col-sm-1 col-form-label">Jumlah</label>
                                                     <div class="col-sm-3">
                                                         <div class="input-group mb-3">
-                                                            <input type="number" class="form-control" id="jumlah_permintaan_barang_in" name="jumlah_permintaan_barang_in[]" placeholder="Masukkan Jumlah Barang" value="<?php echo $jumlah_barang; ?>" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                                            <input type="number" class="form-control jumlah_permintaan_barang_in" id="jumlah_permintaan_barang_in" name="jumlah_permintaan_barang_in[]" placeholder="Masukkan Jumlah Barang" value="<?php echo $jumlah_barang; ?>" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
                                                             <span class="input-group-text satuannya" id="basic-addon2">Satuan</span>
                                                         </div>
                                                     </div>

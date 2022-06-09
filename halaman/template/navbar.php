@@ -175,7 +175,7 @@ if (mysqli_num_rows($query) > 0) {
 
           <li class="nav-header">Gudang</li>
           <li class="nav-item">
-            <a href="menu-verifikasi-permintaan_gudang_out.php" class="nav-link">
+            <a href="menu-verifikasi-permintaan_gudang_in.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Kirim Barang

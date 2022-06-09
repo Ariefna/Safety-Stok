@@ -16,17 +16,17 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- Navbar -->
             <?php include 'template/navbar.php'; ?>
             <?php if (isset($_GET['detail'])) {
-                $sql = 'SELECT * FROM detail_permintaan_out WHERE md5(kode_permintaan_brg_out)="' . $_GET['detail'] . '"';
+                $sql = 'SELECT * FROM detail_permintaan_in WHERE md5(kode_permintaan_brg_in)="' . $_GET['detail'] . '"';
                 // echo $sql;
                 $i = 1;
                 $query = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($query) > 0) {
                     while ($row = mysqli_fetch_assoc($query)) {
-                        $id_detail_permintaan_out           = $row['id_detail_permintaan_out'];
-                        $kode_permintaan_brg_out            = $row['kode_permintaan_brg_out'];
+                        $id_detail_permintaan_in           = $row['id_detail_permintaan_in'];
+                        $kode_permintaan_brg_in            = $row['kode_permintaan_brg_in'];
                         $id_barang                          = $row['id_barang'];
-                        $jumlah_permintaan_barang_out       = $row['jumlah_permintaan_barang_out'];
-                        $status_detail_permintaan_out       = $row['status_detail_permintaan_out'];
+                        $jumlah_permintaan_barang_in       = $row['jumlah_permintaan_barang_in'];
+                        $status_detail_permintaan_in       = $row['status_detail_permintaan_in'];
                     }
                 } else {
                 }
@@ -89,26 +89,26 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             <tbody>
                                                 <?php
                                                 $sql = "SELECT a.*, b.nama_barang, b.no_serial, c.nama_satuan_barang
-                                                    FROM detail_permintaan_out a JOIN barang b ON a.id_barang = b.id_barang
+                                                    FROM detail_permintaan_in a JOIN barang b ON a.id_barang = b.id_barang
                                                     JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang
-                                                    WHERE kode_permintaan_brg_out = '$kode_permintaan_brg_out'";
+                                                    WHERE kode_permintaan_brg_in = '$kode_permintaan_brg_in'";
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
 
-                                                        if ($row['status_detail_permintaan_out'] == 0) {
+                                                        if ($row['status_detail_permintaan_in'] == 0) {
                                                             $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                        } elseif ($row['status_detail_permintaan_out'] == 1) {
+                                                        } elseif ($row['status_detail_permintaan_in'] == 1) {
                                                             $verifikasi = '<span class="right badge badge-success">Approved</span>';
                                                         } else {
                                                             $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
                                                         }
 
-                                                        if ($row['keterangan_out'] == null) {
+                                                        if ($row['keterangan_in'] == null) {
                                                             $keterangannya = '-';
                                                         } else {
-                                                            $keterangannya = $row['keterangan_out'];
+                                                            $keterangannya = $row['keterangan_in'];
                                                         }
 
                                                         echo '<tr>
@@ -116,8 +116,8 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             <td align="">' . $row['no_serial'] . '</td>
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
-                                                            <td align="center">' . $row['jumlah_permintaan_barang_out'] . '</td>
-                                                            <td align="center">' . $row['jumlah_disetujui_out'] . '</td>
+                                                            <td align="center">' . $row['jumlah_permintaan_barang_in'] . '</td>
+                                                            <td align="center">' . $row['jumlah_disetujui_in'] . '</td>
                                                             <td align="">' . $keterangannya . '</td>
                                                             <td align="center">' . $verifikasi . '</td>
                                                             </tr>

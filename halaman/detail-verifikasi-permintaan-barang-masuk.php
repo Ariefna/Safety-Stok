@@ -40,11 +40,11 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Detail Verifikasi Barang Keluar</h1>
+                                <h1>Detail Verifikasi Barang Masuk</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item active">Detail Verifikasi Barang Keluar</li>
+                                    <li class="breadcrumb-item active">Detail Verifikasi Barang Masuk</li>
                                 </ol>
                             </div>
                         </div>
@@ -55,7 +55,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                         <div class="row">
                             <div class="col-12 col-sm-12">
                                 <?php
-                                $cek_status_ya = "SELECT * FROM detail_permintaan_in WHERE kode_permintaan_brg_in = '$kode_permintaan_brg_in'";
+                                $cek_status_ya = "SELECT * FROM permintaan_barang_in WHERE kode_permintaan_brg_in = '$kode_permintaan_brg_in'";
                                 // echo $cek_status_ya;
                                 $query_cek_status_ya = mysqli_query($conn, $cek_status_ya);
                                 while ($get_aja = mysqli_fetch_array($query_cek_status_ya)) {
@@ -173,7 +173,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                                 <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                    <h5 class="modal-title">Verifikasi permintaan barang keluar</h5>
+                                                                    <h5 class="modal-title">Verifikasi permintaan barang Masuk</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
