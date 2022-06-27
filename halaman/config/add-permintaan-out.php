@@ -14,19 +14,16 @@ if (isset($_POST['simpan'])) {
         date_default_timezone_set('Asia/Jakarta');
         $date_request = $tanggal_permintaan_barang_out;
 
-        $sql_master = "INSERT INTO permintaan_barang_out (kode_permintaan_brg_out, date_permintaan_brg_out, id_user, status_permintaan_brg_out) VALUES 
-        ('$kode_permintaan_brg_out','$date_request','$id_user',0)";
+        $sql_master = "INSERT INTO permintaan_barang_out (kode_permintaan_brg_out, date_permintaan_brg_out, id_user, status_permintaan_brg_out) VALUES
+        ('$kode_permintaan_brg_out','$date_request','$id_user',1)";
         $set_master = $conn->query($sql_master);
 
         $count = count($id_barang);
-        $sqlc = "INSERT INTO detail_permintaan_out (kode_permintaan_brg_out, id_barang, jumlah_disetujui_out, keterangan_out, status_detail_permintaan_out, jumlah_permintaan_barang_out) VALUES ";
+        $sqlc = "INSERT INTO detail_permintaan_out (`kode_permintaan_brg_out`, `id_barang`, `jumlah_permintaan_barang_out`) VALUES ";
         for ($i = 0; $i < $count; $i++) {
             $sqlc .= "(
                     '{$kode_permintaan_brg_out}',
                     '{$id_barang[$i]}',
-                    '0',
-                    '',
-                    '0',
                     '{$jumlah_permintaan_barang_out[$i]}')";
             $sqlc .= ",";
         }

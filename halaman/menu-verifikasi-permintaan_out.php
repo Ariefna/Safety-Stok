@@ -23,11 +23,11 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Data Pemintaan Barang Keluar</h1>
+                                <h1>Data Pemintaan Barang</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item active"> Data Permintaan Barang Keluar</li>
+                                    <li class="breadcrumb-item active"> Data Permintaan Barang</li>
                                 </ol>
                             </div>
                         </div>
@@ -67,14 +67,13 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             <tbody>
                                                 <?php
                                                 $sql = "SELECT a.*, b.nama_user
-                                                    FROM permintaan_barang_out a JOIN users b ON a.id_user = b.id_user
-                                                    WHERE a.status_permintaan_brg_out IN ('0', '1')";
+                                                    FROM permintaan_barang_in a JOIN users b ON a.id_user = b.id_user";
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
 
-                                                        if ($row['status_permintaan_brg_out'] == 0) {
+                                                        if ($row['status_permintaan_brg_in'] == 0) {
                                                             $brg_sts_out = '<span class="right badge badge-warning">Belum Divalidasi</span>';
                                                             $statusprove = '';
                                                         } else {
@@ -84,14 +83,14 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 
                                                         echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
-                                                            <td align="">' . $row['kode_permintaan_brg_out'] . '</td>
-                                                            <td align="center">' . $row['date_permintaan_brg_out'] . '</td>
+                                                            <td align="">' . $row['kode_permintaan_brg_in'] . '</td>
+                                                            <td align="center">' . $row['date_permintaan_brg_in'] . '</td>
                                                             <td align="center">' . $row['nama_user'] . '</td>
                                                             <td align="center">' . $brg_sts_out . '</td>
                                                             <td align="center" style="">
-                                                                <form class="" action="detail-verifikasi-permintaan-barang-keluar.php" method="GET">
-                                                                <input type="text" name="detail" value="' . md5($row['kode_permintaan_brg_out']) . '" hidden>
-                                                                <input type="text" name="id" value="' . $row['id_permintaan_brg_out'] . '" hidden>
+                                                                <form class="" action="detail-verifikasi-permintaan-barang-masuk.php" method="GET">
+                                                                <input type="text" name="detail" value="' . md5($row['kode_permintaan_brg_in']) . '" hidden>
+                                                                <input type="text" name="id" value="' . $row['id_permintaan_brg_in'] . '" hidden>
                                                                 <button ' . $statusprove . ' class="btn btn-primary btn-sm" type="submit" name=""><i class="fa fa-eye"></i></button>
                                                                 </form>
                                                             </td>

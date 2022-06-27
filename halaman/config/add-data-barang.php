@@ -41,7 +41,7 @@ if (isset($_POST['simpan'])) {
                     '{$id_user}',
                     '{$id_satuan_barang[$i]}',
                     '0',
-                    '0',
+                    '1',
                     '')";
             $sqlc .= ",";
         }

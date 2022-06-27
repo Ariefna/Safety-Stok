@@ -85,7 +85,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         } elseif ($row['type_user'] == 2) {
                                                             $type_sts = '<span class="right badge badge-info">Gudang</span>';
                                                         } else {
-                                                            $type_sts = '<span class="right badge badge-warning">pimpinan</span>';
+                                                            $type_sts = '<span class="right badge badge-warning">Pimpinan Gudang</span>';
                                                         }
 
                                                         echo '<tr>

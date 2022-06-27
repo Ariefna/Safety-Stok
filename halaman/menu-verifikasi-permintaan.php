@@ -23,11 +23,11 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Data Pemintaan Gudang Barang Masuk</h1>
+                                <h1>Data Pemintaan Kirim Barang</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item active"> Data Permintaan Gudang Barang Masuk</li>
+                                    <li class="breadcrumb-item active"> Data Permintaan Kirim Barang</li>
                                 </ol>
                             </div>
                         </div>
@@ -75,9 +75,9 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
 
                                                         if ($row['status_permintaan_brg_in'] == 1) {
-                                                            $brg_sts_in = '<span class="right badge badge-warning">Belum Divalidasi</span>';
-                                                        } elseif ($row['status_permintaan_brg_in'] == 2) {
                                                             $brg_sts_in = '<span class="right badge badge-success">Sudah Divalidasi</span>';
+                                                        } elseif ($row['status_permintaan_brg_in'] == 2) {
+                                                            $brg_sts_in = '<span class="right badge badge-primary">Sudah Dikirim</span>';
                                                         }
 
                                                         echo '<tr>
@@ -87,7 +87,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             <td align="center">' . $row['nama_user'] . '</td>
                                                             <td align="center">' . $brg_sts_in . '</td>
                                                             <td align="center" style="">
-                                                                <form class="" action="detail-verifikasi-permintaan-barang-masuk-gudang.php" method="GET">
+                                                                <form class="" action="detail-verifikasi-permintaan-barang.php" method="GET">
                                                                 <input type="text" name="detail" value="' . md5($row['kode_permintaan_brg_in']) . '" hidden>
                                                                 <input type="text" name="id" value="' . $row['id_permintaan_brg_in'] . '" hidden>
                                                                 <button class="btn btn-primary btn-sm" type="submit" name=""><i class="fa fa-eye"></i> </button>
@@ -122,23 +122,11 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         </div>
         <!-- ./wrapper -->
         <?php include 'template/script.php';
-        if (isset($_GET['acc']) or isset($_GET['tidakacc']) or isset($_GET['save'])) {
-            if ($_GET['acc'] == "sukses") {
+        if (isset($_GET['save'])) {
+            if ($_GET['save'] == "sukses") {
                 echo '
                     <script type="text/javascript">
-                    toastr.success("Data Permintaan berhasil diverifikasi.");
-                    </script>
-                    ';
-            } elseif ($_GET['tidakacc'] == "sukses") {
-                echo '
-                    <script type="text/javascript">
-                    toastr.success("Data Permintaan berhasil <b>TIDAK</b> diverifikasi.");
-                    </script>
-                    ';
-            } elseif ($_GET['save'] == "sukses") {
-                echo '
-                    <script type="text/javascript">
-                    toastr.success("Data Verifikasi berhasil disimpan.");
+                    toastr.success("Data Permintaan berhasil dikirim.");
                     </script>
                     ';
             } else {

@@ -47,43 +47,45 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         <center>NO</center>
                                                     </th>
                                                     <th>
+                                                        <center>Kode Req</center>
+                                                    </th>
+                                                    <th>
+                                                        <center>Tanggal Req</center>
+                                                    </th>
+                                                    <th>
                                                         <center>Nama Barang</center>
                                                     </th>
                                                     <th>
-                                                        <center>Stok Masuk</center>
+                                                        <center>Qty Keluar</center>
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = "SELECT a.*, b.nama_barang, b.no_serial, c.nama_satuan_barang
+                                                $sql = "SELECT a.*,status_permintaan_brg_out,d.kode_permintaan_brg_out,d.date_permintaan_brg_out, b.nama_barang, b.no_serial, c.nama_satuan_barang
                                                     FROM detail_permintaan_out a JOIN barang b ON a.id_barang = b.id_barang
-                                                    JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang
-                                                    where status_detail_permintaan_out = 1";
+                                                    JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang JOIN permintaan_barang_out d ON d.kode_permintaan_brg_out=a.kode_permintaan_brg_out
+                                                    where status_permintaan_brg_out = 1";
                                                 // echo $sql;
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
 
-                                                        if ($row['status_detail_permintaan_out'] == 0) {
+                                                        if ($row['status_permintaan_brg_out'] == 0) {
                                                             $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                        } elseif ($row['status_detail_permintaan_out'] == 1) {
+                                                        } elseif ($row['status_permintaan_brg_out'] == 1) {
                                                             $verifikasi = '<span class="right badge badge-success">Approved</span>';
                                                         } else {
                                                             $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
                                                         }
 
-                                                        if ($row['keterangan_out'] == null) {
-                                                            $keterangannya = '-';
-                                                        } else {
-                                                            $keterangannya = $row['keterangan_out'];
-                                                        }
-
                                                         echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
+                                                            <td align="">' . $row['kode_permintaan_brg_out'] . '</td>
+                                                            <td align="center">' . $row['date_permintaan_brg_out'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
-                                                            <td align="center">' . $row['jumlah_disetujui_out'] . '</td>
+                                                            <td align="center">' . $row['jumlah_permintaan_barang_out'] . '</td>
                                                             </tr>
                                                             ';
                                                     }

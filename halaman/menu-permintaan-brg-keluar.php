@@ -8,7 +8,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
     $index = 200;
     include 'template/head.php';
     $your_id = $_SESSION['id_user'];
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -64,21 +64,21 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                    $sql = "SELECT *
+                                                $sql = "SELECT *
                                                     FROM permintaan_barang_out
                                                     WHERE id_user = '$your_id'";
-                                                    $i = 1;
-                                                    $query = mysqli_query($conn, $sql);
-                                                    if (mysqli_num_rows($query) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($query)) {
+                                                $i = 1;
+                                                $query = mysqli_query($conn, $sql);
+                                                if (mysqli_num_rows($query) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($query)) {
 
-                                                            if ($row['status_permintaan_brg_out'] == 0) {
-                                                                $brg_sts_out = '<span class="right badge badge-warning">Belum Divalidasi</span>';
-                                                            } else {
-                                                                $brg_sts_out = '<span class="right badge badge-success">Sudah Divalidasi</span>';
-                                                            }
+                                                        if ($row['status_permintaan_brg_out'] == 0) {
+                                                            $brg_sts_out = '<span class="right badge badge-warning">Belum Divalidasi</span>';
+                                                        } else {
+                                                            $brg_sts_out = '<span class="right badge badge-success">Sudah Divalidasi</span>';
+                                                        }
 
-                                                            echo '<tr>
+                                                        echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['kode_permintaan_brg_out'] . '</td>
                                                             <td align="center">' . $row['date_permintaan_brg_out'] . '</td>
@@ -91,9 +91,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             </td>
                                                             </tr>
                                                             ';
-                                                        }
-                                                    } else { }
-                                                    ?>
+                                                    }
+                                                } else {
+                                                }
+                                                ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -117,33 +118,33 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
         </div>
         <!-- ./wrapper -->
         <?php include 'template/script.php';
-            if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete'])) {
-                if ($_GET['tambah'] == "sukses") {
-                    echo '
+        if (isset($_GET['tambah']) or isset($_GET['edit']) or isset($_GET['delete'])) {
+            if ($_GET['tambah'] == "sukses") {
+                echo '
                     <script type="text/javascript">
-                    toastr.success("Data Peminjaman berhasil ditambahkan.");
+                    toastr.success("Data Permintaan Barang berhasil ditambahkan.");
                     </script>
                     ';
-                } elseif ($_GET['edit'] == "sukses") {
-                    echo '
+            } elseif ($_GET['edit'] == "sukses") {
+                echo '
                     <script type="text/javascript">
-                    toastr.success("Data Peminjaman berhasil diubah.");
+                    toastr.success("Data Permintaan Barang berhasil diubah.");
                     </script>
                     ';
-                } elseif ($_GET['delete'] == "sukses") {
-                    echo '
+            } elseif ($_GET['delete'] == "sukses") {
+                echo '
                     <script type="text/javascript">
-                    toastr.success("Data Peminjaman berhasil dihapus.");
+                    toastr.success("Data Permintaan Barang berhasil dihapus.");
                     </script>
                     ';
-                } else {
-                    echo '
+            } else {
+                echo '
                     <script type="text/javascript">
                     toastr.error("Permintaan Anda gagal diproses.");
                     </script>
                     ';
-                }
-            } ?>
+            }
+        } ?>
     </body>
 <?php } ?>
 

@@ -54,7 +54,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         <center>Nama Barang</center>
                                                     </th>
                                                     <th>
-                                                        <center>Stok</center>
+                                                        <center>Qty Sekarang</center>
                                                     </th>
                                                     <th>
                                                         <center>Safety Stok</center>
@@ -62,233 +62,30 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <th>
                                                         <center>Satuan</center>
                                                     </th>
-                                                    <th>
-                                                        <center>Keterangan</center>
-                                                    </th>
-                                                    <th>
-                                                        <center>Catatan</center>
-                                                    </th>
-                                                    <th>
-                                                        <center>Status</center>
-                                                    </th>
-                                                    <th width="5%">
-                                                        <center>STY PER</center>
-                                                    </th>
-                                                    <th width="5%">
-                                                        <center>Hapus</center>
-                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = 'SELECT a.*, b.nama_satuan_barang, COALESCE((COALESCE((select avg(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0)*2) ,0) "safetystok", COALESCE((select sum(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0) keluar, COALESCE((select sum(jumlah_disetujui_in) "masuk" from detail_permintaan_in where id_barang = a.id_barang group by id_barang),0) masuk FROM barang a 
-                                                JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang
-                                                group by a.id_barang
-                                                having (COALESCE((COALESCE((select avg(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0)*2) ,0)) > (COALESCE((select sum(jumlah_disetujui_in) "masuk" from detail_permintaan_in where id_barang = a.id_barang group by id_barang),0)-COALESCE((select sum(jumlah_disetujui_out) "keluar" from detail_permintaan_out where id_barang = a.id_barang group by id_barang),0))';
+                                                $sql = 'SELECT a.*, b.nama_satuan_barang, (select round(avg(jumlah_permintaan_barang_out),0) keluar from detail_permintaan_out where id_barang = a.id_barang group by id_barang) safetystok, (select sum(jumlah_permintaan_barang_out) from detail_permintaan_out where id_barang = a.id_barang) keluar, (select sum(jumlah_permintaan_barang_in) from detail_permintaan_in where status_in=1 AND id_barang = a.id_barang) masuk, (select round(avg(jumlah_permintaan_barang_out),0) from detail_permintaan_out where id_barang = a.id_barang) rata_keluar FROM barang a JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang group by a.id_barang';
                                                 // echo $sql;
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
-
-                                                        $id_br = $row['id_barang'];
-                                                        $safetystok = round($row['safetystok']);
-
-                                                        $sql_sty = "SELECT i.id_barang, i.jumlah_barang AS jml_stok, avg(j.jumlah_barang) AS jml_pinjam_rata, max(j.jumlah_barang) AS jml_pinjam_max,
-                                                            j.status_peminjaman_barang, COALESCE((avg(j.jumlah_barang)*2),0) as safetystok
-                                                            FROM barang i JOIN detail_peminjaman j ON i.id_barang = j.id_barang
-                                                            WHERE i.id_barang = '$id_br' AND j.status_pengembalian_barang = 0 
-                                                            having (avg(j.jumlah_barang)*2) > 0";
-                                                        $query_sty = mysqli_query($conn, $sql_sty);
-                                                        $row_sty = mysqli_fetch_array($query_sty);
-
-                                                        $status_peminjaman_barang = $row_sty['status_peminjaman_barang'];
-                                                        $rata_nilai = round($row_sty['jml_pinjam_rata'], 2);
-                                                        $max_nilai = $row_sty['jml_pinjam_max'];
-                                                        // $safetystok = $row_sty['safetystok'];
-
-                                                        // ==========================================
-
-                                                        $min1                     = mktime(0, 0, 0, date("n") - 1, date("j"), date("Y"));
-                                                        $hasil_bulan_sebelum      = date("Y-m", $min1);
-
-
-                                                        $sql_sty_permintaan = "SELECT x.id_barang, x.jumlah_barang AS jml_stok,
-                                                                avg(p.jumlah_permintaan_barang_out) AS jml_permintaan_rata, COALESCE(max(p.jumlah_permintaan_barang_out),0) AS jml_permintaan_max,
-                                                                p.status_detail_permintaan_out, DATE_FORMAT(lk.date_permintaan_brg_out, '%Y-%m') AS date_permintaan_brg_out,
-                                                                count(p.id_detail_permintaan_out) AS totalTrans
-                                                                FROM barang x JOIN detail_permintaan_out p ON x.id_barang = p.id_barang
-                                                                JOIN permintaan_barang_out lk ON p.kode_permintaan_brg_out = lk.kode_permintaan_brg_out
-                                                                WHERE x.id_barang = '$id_br' AND p.status_detail_permintaan_out = 1 AND DATE_FORMAT(lk.date_permintaan_brg_out, '%Y-%m') = '$hasil_bulan_sebelum'";
-                                                        $query_sty_permintaan = mysqli_query($conn, $sql_sty_permintaan);
-                                                        $row_sty_permintaan = mysqli_fetch_array($query_sty_permintaan);
-
-
-                                                        // QUERY OLD
-                                                        // $sql_sty_permintaan = "SELECT x.id_barang, x.jumlah_barang AS jml_stok, avg(p.jumlah_permintaan_barang_out) AS jml_permintaan_rata, max(p.jumlah_permintaan_barang_out) AS jml_permintaan_max,
-                                                        //     p.status_detail_permintaan_out
-                                                        //     FROM barang x JOIN detail_permintaan_out p ON x.id_barang = p.id_barang
-                                                        //     JOIN permintaan_barang_out lk ON p.kode_permintaan_brg_out = lk.kode_permintaan_brg_out
-                                                        //     WHERE x.id_barang = '$id_br' AND p.status_detail_permintaan_out = 1";
-                                                        //     $query_sty_permintaan = mysqli_query($conn, $sql_sty_permintaan);
-                                                        //     $row_sty_permintaan = mysqli_fetch_array($query_sty_permintaan);
-
-
-                                                        $date_permintaan_brg_out = $row_sty_permintaan['date_permintaan_brg_out'];
-                                                        $totalTrans = $row_sty_permintaan['totalTrans'];
-
-                                                        $status_detail_permintaan_out = $row_sty_permintaan['status_detail_permintaan_out'];
-                                                        $rata_nilai_permintaan = round($row_sty_permintaan['jml_permintaan_rata'], 2);
-                                                        $max_nilai_permintaan = 0;
-                                                        $max_nilai_permintaan = $row_sty_permintaan['jml_permintaan_max'];
-
-
-                                                        if ($row['status_request'] == 0) {
-                                                            $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                        } elseif ($row['status_request'] == 1) {
-                                                            $verifikasi = '<span class="right badge badge-success ' . $safetystok . '">Approved</span>';
-                                                        } else {
-                                                            $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
-                                                        }
-
-                                                        // if ($row['status_request'] == 0 || $status_peminjaman_barang == 0 || $status_peminjaman_barang == 2) {
-                                                        //     $but = 'disabled';
-                                                        // } else {
-                                                        //     $but = '';
-                                                        // }
-
-                                                        // if ($row['status_request'] == 0 || $status_detail_permintaan_out == 0) {
-                                                        //     $but1 = 'disabled';
-                                                        // } elseif ($totalTrans >= 30) {
-                                                        $but1 = '';
-                                                        // } else {
-                                                        //     $but1 = 'disabled';
-                                                        // }
-
-                                                        $leadTime = 4;
-
-
+                                                      $safetystok = $row['safetystok']*2;
+                                                      $qtynow = $row['jumlah_barang'] + $row['masuk'] - $row['keluar'];
+                                                      if ($qtynow<=$safetystok) {
                                                         echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['no_request'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
-                                                            <td align="">' . ($row['jumlah_barang'] + $row['masuk'] - $row['keluar']) . '</td>
-                                                            <td align="">' . $safetystok . '</td>
+                                                            <td align="center">' . $qtynow . '</td>
+                                                            <td align="center">' . $safetystok . '</td>
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
-                                                            <td align="">' . $row['keterangan_barang'] . '</td>
-                                                            <td align="">' . $row['catatan_barang'] . '</td>
-                                                            <td align="">' . $verifikasi . '</td>
-
-                                                            <td align="center" style="">
-                                                               <button ' . $but1 . ' type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#sty_permintaan' . md5($row['id_barang']) . '">
-                                                                    <i class="fa fa-cog"></i>
-                                                                </button>
-                                                            </td>
-
-                                                            <td align="center" style="">
-                                                                <form class="" action="config/add-data-barang.php" method="GET">
-                                                                <input type="text" name="delete" value="' . md5($row['id_barang']) . '" hidden>
-                                                                <button class="btn btn-danger btn-sm" type="submit" name=""><i class="fa fa-trash"></i></button>
-                                                                </form>
-                                                            </td>
                                                             </tr>
-
-                                                            <div class="modal fade" id="sty' . md5($row['id_barang']) . '" aria-hidden="true" style="display: none;">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title">Safety Stok Peminjaman</h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <form method="POST" action="config/add-safety-stok.php">
-                                                                            <div class="modal-body">
-                                                                                <!-- <p>One fine body…</p> -->
-                                                                                <h5>Nomer Seri : ' . $row['no_serial'] . '</h5>
-
-                                                                                <div class="form-group row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <input type="text" id="id_barang" name="id_barang" value="' . $row['id_barang'] . '" hidden>
-                                                                                        <label for="" class="col-form-label">Jumlah Stok</label>
-                                                                                        <div class="">
-                                                                                            <input type="number" class="form-control" id="" name="jumlah_barang" value="' . $row['jumlah_barang'] . '" required ' . (($row['jumlah_barang'] == 0) ? '' : 'readonly') . '>
-                                                                                        </div>
-                                                                                        <label for="" class="col-form-label">Pemakaian Maksimum</label>
-                                                                                        <div class="">
-                                                                                            <input type="number" class="form-control" id="" name="max_stok" value="' . $max_nilai . '" required readonly>
-                                                                                        </div>
-                                                                                        <label for="" class="col-form-label">Pemakaian Rata - Rata</label>
-                                                                                        <div class="">
-                                                                                           <input type="number" class="form-control" id="" name="rata_rata_sty" value="' . $rata_nilai . '" required readonly>
-                                                                                        </div>
-                                                                                        <label for="" class="col-form-label">Lead Time (Hari)</label>
-                                                                                        <div class="">
-                                                                                            <input type="number" class="form-control" placeholder="Masukkan Lead Time" id="" name="lead_time_sty" required>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-between">
-                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
-                                                                                <button type="submit" class="btn btn-primary" value="' . $row['id_barang'] . '" name="simpan_sty">Simpan</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                    <!-- /.modal-content -->
-                                                                </div>
-                                                                <!-- /.modal-dialog -->
-                                                            </div>
-
-                                                            <!-- Permintaan -->
-
-                                                             <div class="modal fade" id="sty_permintaan' . md5($row['id_barang']) . '" aria-hidden="true" style="display: none;">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title">Safety Stok Permintaan</h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <form method="POST" action="config/add-safety-stok-permintaan.php">
-                                                                            <div class="modal-body">
-                                                                                <!-- <p>One fine body…</p> -->
-                                                                                <h5>Nomer Seri : ' . $row['no_serial'] . '</h5>
-
-                                                                                <div class="form-group row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <input type="text" id="id_barang" name="id_barang" value="' . $row['id_barang'] . '" hidden>
-                                                                                        <label for="" class="col-form-label">Jumlah Stok</label>
-                                                                                        <div class="">
-                                                                                            <input type="number" class="form-control" id="" name="jumlah_barang" value="' . $row['jumlah_barang'] . '" required readonly>
-                                                                                        </div>
-                                                                                        <label for="" class="col-form-label">Pemakaian Maksimum</label>
-                                                                                        <div class="">
-                                                                                            <input type="number" class="form-control" id="" name="max_stok" value="' . $max_nilai_permintaan . '" required readonly>
-                                                                                        </div>
-                                                                                        <label for="" class="col-form-label">Pemakaian Rata - Rata</label>
-                                                                                        <div class="">
-                                                                                           <input type="number" class="form-control" id="" name="rata_rata_sty" value="' . $rata_nilai_permintaan . '" required readonly>
-                                                                                        </div>
-                                                                                        <label for="" class="col-form-label">Lead Time (Hari)</label>
-                                                                                        <div class="">
-                                                                                            <input type="number" class="form-control" placeholder="Masukkan Lead Time" id="" name="lead_time_sty"  value="' . $leadTime . '" required readonly>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-between">
-                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Kembali</button>
-                                                                                <button type="submit" class="btn btn-primary" value="' . $row['id_barang'] . '" name="simpan_sty_permintaan">Simpan</button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                    <!-- /.modal-content -->
-                                                                </div>
-                                                                <!-- /.modal-dialog -->
-                                                            </div>
                                                             ';
+                                                      }
+
                                                     }
                                                 } else {
                                                 }

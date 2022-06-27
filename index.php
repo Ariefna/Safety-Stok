@@ -1,3 +1,6 @@
+<?php
+    session_start();
+    ?>
 <!DOCTYPE html>
 <html>
 <?php include 'template/head.php'; ?>
@@ -34,7 +37,7 @@ if ($date_now != $sub_data) {
 
         <form action="" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Username" name="username" required>
+            <input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -90,7 +93,7 @@ if ($date_now != $sub_data) {
         } elseif ($_SESSION['type'] == 1) {
           echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-permintaan-brg-keluar.php';</script>";
         } elseif ($_SESSION['type'] == 2) {
-          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan_gudang_in.php';</script>";
+          echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan.php';</script>";
         } else {
           echo "<script>alert('Selamat datang kembali, " . $_SESSION['appks'] . "');document.location = 'halaman/menu-verifikasi-permintaan_out.php';</script>";
         }

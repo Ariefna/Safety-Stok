@@ -121,7 +121,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         <option value="0" <?php echo $type_user == 0 ? "selected='selected'" : ""; ?>>Superadmin</option>
                                                         <option value="1" <?php echo $type_user == 1 ? "selected='selected'" : ""; ?>>Admin Cabang</option>
                                                         <option value="2" <?php echo $type_user == 2 ? "selected='selected'" : ""; ?>>Gudang</option>
-                                                        <option value="3" <?php echo $type_user == 3 ? "selected='selected'" : ""; ?>>Pimpinan</option>
+                                                        <option value="3" <?php echo $type_user == 3 ? "selected='selected'" : ""; ?>>Pimpinan Gudang</option>
                                                     </select>
                                                 </div>
 

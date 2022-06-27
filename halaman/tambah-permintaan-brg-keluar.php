@@ -106,7 +106,6 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                                                 } ?>>- Pilih Barang -</option>
                                                             <?php $str = mysqli_query($conn, "SELECT a.*, b.nama_satuan_barang
                                                             FROM barang a JOIN satuan_barang b ON a.id_satuan_barang = b.id_satuan_barang
-                                                            WHERE a.status_po = 2 AND b.id_satuan_barang IN (2,3)
                                                             ORDER BY b.nama_satuan_barang ASC");
                                                             while ($data = mysqli_fetch_array($str)) { ?>
                                                                 <option data-id="<?php echo @$data[14]; ?>" value="<?php echo @$data[0]; ?>" <?php if (@$row[0] == @$data[0]) {

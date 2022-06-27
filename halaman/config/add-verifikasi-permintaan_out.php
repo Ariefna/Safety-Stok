@@ -19,7 +19,7 @@ if (isset($_POST['verifikasi_detail'])) {
 
     $hitung = $get_jumlah_stok - $jml_disetujui;
 
-    $sql = "UPDATE detail_permintaan_out SET jumlah_disetujui_out = '$jml_disetujui', keterangan_out = '$keterangan_out', status_detail_permintaan_out = 1 
+    $sql = "UPDATE detail_permintaan_out SET jumlah_disetujui_out = '$jml_disetujui', keterangan_out = '$keterangan_out', status_detail_permintaan_out = 1
             WHERE id_detail_permintaan_out = '$id_detail_permintaan_out';";
     // $sql .= "UPDATE barang SET jumlah_barang = '$hitung' WHERE id_barang = '$id_barang'";
     $query = mysqli_multi_query($conn, $sql);
@@ -45,7 +45,7 @@ if (isset($_POST['verifikasi_detail'])) {
     $jml_disetujui       = $_POST['jml_disetujui'];
     $keterangan_out      = $_POST['keterangan_out'];
 
-    $sql = "UPDATE detail_permintaan_out SET jumlah_disetujui_out = '$jml_disetujui', keterangan_out = '$keterangan_out', status_detail_permintaan_out = 2 
+    $sql = "UPDATE detail_permintaan_out SET jumlah_disetujui_out = '$jml_disetujui', keterangan_out = '$keterangan_out', status_detail_permintaan_out = 2
             WHERE id_detail_permintaan_out = '$id_detail_permintaan_out'";
     $query = mysqli_query($conn, $sql);
 
@@ -64,9 +64,10 @@ if (isset($_POST['verifikasi_detail'])) {
     }
 } else {
 
-    $id_permintaan_brg_out  = $_GET['id'];
+    $id_permintaan_brg_in  = $_GET['id'];
 
-    $sql = "UPDATE permintaan_barang_out SET status_permintaan_brg_out = 1 WHERE id_permintaan_brg_out = '$id_permintaan_brg_out'";
+    $sql = "UPDATE permintaan_barang_in SET status_permintaan_brg_in = 1 WHERE id_permintaan_brg_in = '$id_permintaan_brg_in'";
+    echo $sql;
     $query = mysqli_query($conn, $sql);
 
     if ($query) {

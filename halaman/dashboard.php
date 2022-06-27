@@ -9,7 +9,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
   include 'template/head.php';
   $your_id = $_SESSION['id_user'];
   $type_user = $_SESSION['type'];
-  ?>
+?>
 
   <body class="hold-transition sidebar-mini layout-fixed">
     <!-- Site wrapper -->
@@ -40,18 +40,18 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
           <!-- Default box -->
           <div class="container-fluid">
             <div class="row">
-              <div class="col-lg-3 col-6">
+              <div class="col-lg-6 col-6">
                 <!-- small box -->
                 <div class="small-box bg-red">
                   <div class="inner">
                     <h3>
                       <?php
-                        $tampilkanBarang = "select count(*) as countBarang FROM barang WHERE status_po = 2";
-                        $str = mysqli_query($conn, $tampilkanBarang);
-                        while ($data = mysqli_fetch_array($str)) {
-                          echo $data['countBarang'];
-                        }
-                        ?>
+                      $tampilkanBarang = "select count(*) as countBarang FROM barang";
+                      $str = mysqli_query($conn, $tampilkanBarang);
+                      while ($data = mysqli_fetch_array($str)) {
+                        echo $data['countBarang'];
+                      }
+                      ?>
                     </h3>
                     <p>Barang</p>
                   </div>
@@ -61,22 +61,21 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                   <a href="#" class="small-box-footer"><i class="fas"></i></a>
                 </div>
               </div>
-              <div class="col-lg-3 col-6">
-                <!-- small box -->
+              <div class="col-lg-6 col-6">
                 <div class="small-box bg-warning">
                   <div class="inner">
                     <h3>
                       <?php
-                        if ($type_user == 0 || $type_user == 1 || $type_user == 2) {
-                          $tampilkanPermintaan = "select count(*) as countPermintaan FROM permintaan_barang_out";
-                        } else {
-                          $tampilkanPermintaan = "select count(*) as countPermintaan FROM permintaan_barang_out WHERE id_user = '$your_id'";
-                        }
-                        $str = mysqli_query($conn, $tampilkanPermintaan);
-                        while ($data = mysqli_fetch_array($str)) {
-                          echo $data['countPermintaan'];
-                        }
-                        ?>
+                      if ($type_user == 0 || $type_user == 1 || $type_user == 2) {
+                        $tampilkanPermintaan = "select count(*) as countPermintaan FROM permintaan_barang_out";
+                      } else {
+                        $tampilkanPermintaan = "select count(*) as countPermintaan FROM permintaan_barang_out WHERE id_user = '$your_id'";
+                      }
+                      $str = mysqli_query($conn, $tampilkanPermintaan);
+                      while ($data = mysqli_fetch_array($str)) {
+                        echo $data['countPermintaan'];
+                      }
+                      ?>
                     </h3>
                     <p>Permintaan</p>
                   </div>
@@ -86,22 +85,21 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                   <a href="#" class="small-box-footer"><i class="fas"></i></a>
                 </div>
               </div>
-              <div class="col-lg-3 col-6">
-                <!-- small box -->
+              <!-- <div class="col-lg-3 col-6">
                 <div class="small-box bg-primary">
                   <div class="inner">
                     <h3>
                       <?php
-                        if ($type_user == 0 || $type_user == 1 || $type_user == 2) {
-                          $tampilkanPeminjaman = "select count(*) as countPeminjaman FROM peminjaman_barang";
-                        } else {
-                          $tampilkanPeminjaman = "select count(*) as countPeminjaman FROM peminjaman_barang WHERE id_user = '$your_id'";
-                        }
-                        $str = mysqli_query($conn, $tampilkanPeminjaman);
-                        while ($data = mysqli_fetch_array($str)) {
-                          echo $data['countPeminjaman'];
-                        }
-                        ?>
+                      // if ($type_user == 0 || $type_user == 1 || $type_user == 2) {
+                      //   $tampilkanPeminjaman = "select count(*) as countPeminjaman FROM peminjaman_barang";
+                      // } else {
+                      //   $tampilkanPeminjaman = "select count(*) as countPeminjaman FROM peminjaman_barang WHERE id_user = '$your_id'";
+                      // }
+                      // $str = mysqli_query($conn, $tampilkanPeminjaman);
+                      // while ($data = mysqli_fetch_array($str)) {
+                      //   echo $data['countPeminjaman'];
+                      // }
+                      ?>
                     </h3>
 
                     <p>Peminjaman</p>
@@ -111,23 +109,22 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                   </div>
                   <a href="#" class="small-box-footer"><i class="fas"></i></a>
                 </div>
-              </div>
-              <div class="col-lg-3 col-6">
-                <!-- small box -->
+              </div> -->
+              <!-- <div class="col-lg-3 col-6">
                 <div class="small-box bg-success">
                   <div class="inner">
                     <h3>
                       <?php
-                        if ($type_user == 0 || $type_user == 1 || $type_user == 2) {
-                          $tampilkanPengembalian = "select count(*) as countPengembalian FROM peminjaman_barang";
-                        } else {
-                          $tampilkanPengembalian = "select count(*) as countPengembalian FROM peminjaman_barang WHERE id_user = '$your_id' AND status_peminjaman = 2";
-                        }
-                        $str = mysqli_query($conn, $tampilkanPengembalian);
-                        while ($data = mysqli_fetch_array($str)) {
-                          echo $data['countPengembalian'];
-                        }
-                        ?>
+                      // if ($type_user == 0 || $type_user == 1 || $type_user == 2) {
+                      //   $tampilkanPengembalian = "select count(*) as countPengembalian FROM peminjaman_barang";
+                      // } else {
+                      //   $tampilkanPengembalian = "select count(*) as countPengembalian FROM peminjaman_barang WHERE id_user = '$your_id' AND status_peminjaman = 2";
+                      // }
+                      // $str = mysqli_query($conn, $tampilkanPengembalian);
+                      // while ($data = mysqli_fetch_array($str)) {
+                      //   echo $data['countPengembalian'];
+                      // }
+                      ?>
                     </h3>
 
                     <p>Pengembalian</p>
@@ -137,7 +134,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                   </div>
                   <a href="#" class="small-box-footer"><i class="fas"></i></a>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </section>

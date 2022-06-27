@@ -26,7 +26,6 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                         $kode_permintaan_brg_in            = $row['kode_permintaan_brg_in'];
                         $id_barang                          = $row['id_barang'];
                         $jumlah_permintaan_barang_in       = $row['jumlah_permintaan_barang_in'];
-                        $status_detail_permintaan_in       = $row['status_detail_permintaan_in'];
                     }
                 } else {
                 }
@@ -73,10 +72,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         <center>Nama Barang</center>
                                                     </th>
                                                     <th>
-                                                        <center>Jumlah Permintaan</center>
-                                                    </th>
-                                                    <th>
-                                                        <center>Jumlah Dapat Diambil</center>
+                                                        <center>Qty Permintaan</center>
                                                     </th>
                                                     <th>
                                                         <center>Status</center>
@@ -85,7 +81,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = "SELECT a.*, b.nama_barang, b.no_serial, c.nama_satuan_barang
+                                                $sql = "SELECT a.*,(SELECT status_permintaan_brg_in FROM permintaan_barang_in WHERE kode_permintaan_brg_in=a.kode_permintaan_brg_in) status_permintaan_brg_in, b.nama_barang, b.no_serial, c.nama_satuan_barang
                                                     FROM detail_permintaan_in a JOIN barang b ON a.id_barang = b.id_barang
                                                     JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang
                                                     WHERE kode_permintaan_brg_in = '$kode_permintaan_brg_in'";
@@ -94,27 +90,20 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
 
-                                                        if ($row['status_detail_permintaan_in'] == 0) {
+                                                        if ($row['status_permintaan_brg_in'] == 0) {
                                                             $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                        } elseif ($row['status_detail_permintaan_in'] == 1) {
+                                                        } elseif ($row['status_permintaan_brg_in'] == 1) {
                                                             $verifikasi = '<span class="right badge badge-success">Approved</span>';
                                                         } else {
                                                             $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
                                                         }
 
-                                                        if ($row['keterangan_in'] == null) {
-                                                            $keterangannya = '-';
-                                                        } else {
-                                                            $keterangannya = $row['keterangan_in'];
-                                                        }
-
                                                         echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
-                                                            <td align="">' . $row['no_serial'] . '</td>
+                                                            <td align="center">' . $row['no_serial'] . '</td>
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
                                                             <td align="center">' . $row['jumlah_permintaan_barang_in'] . '</td>
-                                                            <td align="center">' . $row['jumlah_disetujui_in'] . '</td>
                                                             <td align="center">' . $verifikasi . '</td>
                                                             </tr>
                                                             ';

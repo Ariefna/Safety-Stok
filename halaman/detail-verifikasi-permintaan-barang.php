@@ -18,6 +18,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <?php include 'template/navbar.php'; ?>
             <?php if (isset($_GET['detail'])) {
                 $sql = 'SELECT * FROM detail_permintaan_in WHERE md5(kode_permintaan_brg_in)="' . $_GET['detail'] . '"';
+                // echo $sql;
                 $i = 1;
                 $query = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($query) > 0) {
@@ -39,11 +40,11 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Detail Verifikasi Barang Masuk</h1>
+                                <h1>Detail Verifikasi Gudang Barang Masuk</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item active">Detail Verifikasi Barang Masuk</li>
+                                    <li class="breadcrumb-item active">Detail Verifikasi Gudang Barang Masuk</li>
                                 </ol>
                             </div>
                         </div>
@@ -53,9 +54,22 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12 col-sm-12">
+                              <?php
+                              $cek_status_ya = "SELECT * FROM permintaan_barang_in WHERE kode_permintaan_brg_in = '$kode_permintaan_brg_in'";
+                              $query_cek_status_ya = mysqli_query($conn, $cek_status_ya);
+                              while ($get_aja = mysqli_fetch_array($query_cek_status_ya)) {
 
-                                <a href="config/add-verifikasi-permintaan_out.php?id=<?php echo $id_prt_brd; ?>">
-                                    <button type="submit" class="btn btn-success" name="save_verifikasi" value="<?php echo $id_prt_brd; ?>">
+                                    $a = $get_aja['status_permintaan_brg_in'];
+
+                                  if ($a == 2) {
+                                      $cek_but_sts = 'disabled';
+                                  } else {
+                                      $cek_but_sts = '';
+                                  }
+                              }
+                               ?>
+                                <a href="config/add-verifikasi-permintaan_in_gudang.php?id=<?php echo $id_prt_brd; ?>&kode=<?php echo $kode_permintaan_brg_in; ?>">
+                                    <button <?php echo $cek_but_sts; ?> type="submit" class="btn btn-success" name="save_verifikasi" value="<?php echo $id_prt_brd; ?>">
                                         <i class="fa fa-save"></i> Konfirmasi Hasil Verfikasi
                                     </button>
                                 </a>
@@ -84,20 +98,18 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <th>
                                                         <center>Karyawan</center>
                                                     </th>
-                                                    <th>
-                                                        <center>Status</center>
-                                                    </th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $sql = "SELECT a.*,status_permintaan_brg_in, us.nama_user, b.nama_barang, b.no_serial, b.jumlah_barang, c.nama_satuan_barang, ot.id_permintaan_brg_in
+                                                $sql = "SELECT a.*, us.nama_user, b.nama_barang, b.no_serial, b.jumlah_barang, c.nama_satuan_barang, ot.id_permintaan_brg_in
                                                     FROM permintaan_barang_in ot JOIN users us ON ot.id_user = us.id_user
                                                     JOIN detail_permintaan_in a ON ot.kode_permintaan_brg_in = a.kode_permintaan_brg_in
                                                     JOIN barang b ON a.id_barang = b.id_barang
                                                     JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang
                                                     WHERE a.kode_permintaan_brg_in = '$kode_permintaan_brg_in'";
+                                                // echo $sql;
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {
@@ -110,34 +122,13 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                         $hasil_cek_sty = $row_empety['hasil_sty'];
                                                         $hasil_cek_id = $row_empety['cek_id'];
 
-                                                        if ($hasil_cek_id == null) {
-                                                            $safetyStok = 'Belum Ada Safety Stok';
-                                                        } else {
-                                                            $safetyStok = $hasil_cek_sty;
-                                                        }
-
-                                                        if ($row['status_permintaan_brg_in'] == 0) {
-                                                            $verifikasi = '<span class="right badge badge-warning">Pending</span>';
-                                                        } elseif ($row['status_permintaan_brg_in'] == 1) {
-                                                            $verifikasi = '<span class="right badge badge-success">Approved</span>';
-                                                        } else {
-                                                            $verifikasi = '<span class="right badge badge-danger">Not approved</span>';
-                                                        }
-
-                                                        if ($row['status_permintaan_brg_in'] == 1 || $row['status_permintaan_brg_in'] == 2) {
-                                                            $but = 'disabled';
-                                                        } else {
-                                                            $but = '';
-                                                        }
-
                                                         echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
-                                                            <td align="">' . $row['no_serial'] . '</td>
+                                                            <td align="center">' . $row['no_serial'] . '</td>
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
                                                             <td align="center">' . $row['jumlah_permintaan_barang_in'] . '</td>
                                                             <td align="center">' . $row['nama_user'] . '</td>
-                                                            <td align="center">' . $verifikasi . '</td>
                                                             </tr>
                                                             ';
                                                     }

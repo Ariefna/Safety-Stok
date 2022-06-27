@@ -44,7 +44,7 @@ if (mysqli_num_rows($query) > 0) {
       } elseif ($_SESSION['type'] == 1) {
         $type_sts = '<span class="right badge badge-primary">Admin Cabang</span>';
       } elseif ($_SESSION['type'] == 3) {
-        $type_sts = '<span class="right badge badge-warning">pimpinan</span>';
+        $type_sts = '<span class="right badge badge-warning">Pimpinan Gudang</span>';
       } else {
         $type_sts = '<span class="right badge badge-info">Gudang</span>';
       }
@@ -68,7 +68,7 @@ if (mysqli_num_rows($query) > 0) {
           </a>
         </li> -->
         <?php if ($_SESSION['type'] == 0) { ?>
-          <li class="nav-header">WAREHOUSE</li>
+          <li class="nav-header">GUDANG</li>
           <li class="nav-item">
             <a href="menu-data-karyawan.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -120,7 +120,7 @@ if (mysqli_num_rows($query) > 0) {
           </li>
         <?php } ?>
         <?php if ($_SESSION['type'] == 1) { ?>
-          <li class="nav-header">Admin Cabang</li>
+          <li class="nav-header">ADMIN CABANG</li>
           <li class="nav-item">
             <a href="menu-permintaan-brg-keluar.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
@@ -173,9 +173,9 @@ if (mysqli_num_rows($query) > 0) {
         <?php } ?>
         <?php if ($_SESSION['type'] == 2) { ?>
 
-          <li class="nav-header">Gudang</li>
+          <li class="nav-header">GUDANG</li>
           <li class="nav-item">
-            <a href="menu-verifikasi-permintaan_gudang_in.php" class="nav-link">
+            <a href="menu-verifikasi-permintaan.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Kirim Barang
@@ -186,20 +186,12 @@ if (mysqli_num_rows($query) > 0) {
 
         <?php if ($_SESSION['type'] == 3) { ?>
 
-          <li class="nav-header">Kepala</li>
+          <li class="nav-header">PIMPINAN GUDANG</li>
           <li class="nav-item">
             <a href="menu-verifikasi-permintaan_out.php" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Verifikasi Permintaan Barang Keluar
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="menu-verifikasi-permintaan_in.php" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Verifikasi Permintaan Barang Masuk
+                Verifikasi Permintaan Barang
               </p>
             </a>
           </li>

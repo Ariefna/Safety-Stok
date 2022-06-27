@@ -7,7 +7,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
 } else {
     $index = 0;
     include 'template/head.php';
-    ?>
+?>
 
     <body class="hold-transition sidebar-mini layout-fixed">
         <!-- Site wrapper -->
@@ -15,37 +15,38 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- Navbar -->
             <?php include 'template/navbar.php'; ?>
             <?php if (isset($_GET['ubah'])) {
-                    $sql = 'SELECT * FROM barang WHERE md5(id_barang)="' . $_GET['ubah'] . '"';
-                    $i = 1;
-                    $query = mysqli_query($conn, $sql);
-                    if (mysqli_num_rows($query) > 0) {
-                        while ($row = mysqli_fetch_assoc($query)) {
-                            $id_barang              = $row['id_barang'];
-                            $no_request             = $row['no_request'];
-                            $no_serial              = $row['no_serial'];
-                            $nama_barang            = $row['nama_barang'];
-                            $jumlah_barang          = $row['jumlah_barang'];
-                            $harga_barang           = $row['harga_barang'];
-                            $keterangan_barang      = $row['keterangan_barang'];
-                            $catatan_barang         = $row['catatan_barang'];
-                            $id_jenis_barang        = $row['id_jenis_barang'];
-                            $status_request         = $row['status_request'];
-                        }
-                    } else { }
+                $sql = 'SELECT * FROM barang WHERE md5(id_barang)="' . $_GET['ubah'] . '"';
+                $i = 1;
+                $query = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($query) > 0) {
+                    while ($row = mysqli_fetch_assoc($query)) {
+                        $id_barang              = $row['id_barang'];
+                        $no_request             = $row['no_request'];
+                        $no_serial              = $row['no_serial'];
+                        $nama_barang            = $row['nama_barang'];
+                        $jumlah_barang          = $row['jumlah_barang'];
+                        $harga_barang           = $row['harga_barang'];
+                        $keterangan_barang      = $row['keterangan_barang'];
+                        $catatan_barang         = $row['catatan_barang'];
+                        $id_jenis_barang        = $row['id_jenis_barang'];
+                        $status_request         = $row['status_request'];
+                    }
                 } else {
-
-                    $id_barang              = 0;
-                    $no_request             = "";
-                    $no_serial              = "";
-                    $nama_barang            = "";
-                    $jumlah_barang          = "";
-                    $harga_barang           = "";
-                    $keterangan_barang      = "";
-                    $catatan_barang         = "";
-                    $id_jenis_barang        = "";
-                    $status_request         = "";
                 }
-                ?>
+            } else {
+
+                $id_barang              = 0;
+                $no_request             = "";
+                $no_serial              = "";
+                $nama_barang            = "";
+                $jumlah_barang          = "";
+                $harga_barang           = "";
+                $keterangan_barang      = "";
+                $catatan_barang         = "";
+                $id_jenis_barang        = "";
+                $status_request         = "";
+            }
+            ?>
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -85,23 +86,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <input type="text" class="form-control" id="" placeholder="" name="no_serial" value="<?php echo $no_serial; ?>" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <label for="" class="col-sm-2 col-form-label">Jenis Barang</label>
-                                                <div class="col-sm-10">
-                                                    <select name="id_jenis_barang" id="id_jenis_barang" class="form-control" required>
-                                                        <option value="0" <?php if (!isset($_GET['id_jenis_barang'])) {
-                                                                                    echo "selected";
-                                                                                    // code...
-                                                                                } ?>>- Pilih Jenis Barang -</option>
-                                                        <?php $str = mysqli_query($conn, "SELECT * FROM jenis_barang");
-                                                            while ($data = mysqli_fetch_array($str)) { ?>
-                                                            <option value="<?php echo @$data[0]; ?>" <?php if ($id_jenis_barang == @$data[0]) {
-                                                                                                                    echo "selected";
-                                                                                                                } ?>> <?php echo @$data[1]; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                </div>
-                                            </div>
+
                                             <div class="form-group row">
                                                 <label for="" class="col-sm-2 col-form-label">Nama Barang</label>
                                                 <div class="col-sm-10">
@@ -156,8 +141,8 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-        <?php include 'template/script.php'; 
-          
+        <?php include 'template/script.php';
+
         ?>
 
     </body>
