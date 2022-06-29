@@ -19,7 +19,8 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                 $(sel).closest('.group').find('.satuannya').text(valuenya);
                 $.ajax({
                     method: 'GET',
-                    url: "config/ajax_permintaan_barang_in.php ",
+                    url: "/halaman/config/ajax_permintaan_barang_in.php",
+
                     data: {
                         q: barang
                     },
