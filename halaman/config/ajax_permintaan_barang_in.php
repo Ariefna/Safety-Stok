@@ -10,13 +10,18 @@ if ($q != "") {
     // echo $sql;
     $query = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($query);
-    $safetystok = $row['safetystok'] * 2;
-    $littime = 1;
-    // rumus reorder point
-    $hint = $safetystok + ($safetystok * $littime);
+    if (isset($row['safetystok'])) {
+        $safetystok = $row['safetystok'] * 2;
+        $littime = 1;
+        // rumus reorder point
+        $hint = $safetystok + ($safetystok * $littime);
+    }
+}
+$myObj = (object) array('stock' => '0');
+if ($hint != "") {
+    $myObj->stock = $hint;
 }
 
-$myObj->stock = $hint == '' ? '0' : $hint;
 $myJSON = json_encode($myObj);
 echo $myJSON;
 ?>
