@@ -90,9 +90,9 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
 
-                                                        if ($row['status_permintaan_brg_in'] == 0) {
+                                                        if ($row['status_permintaan_brg_in'] == 1) {
                                                             $verifikasi = '<span class="right badge badge-warning">Panding</span>';
-                                                        } elseif ($row['status_permintaan_brg_in'] == 1) {
+                                                        } elseif ($row['status_permintaan_brg_in'] == 2) {
                                                             $verifikasi = '<span class="right badge badge-success">Approved</span>';
                                                         } else {
                                                             $verifikasi = '<span class="right badge badge-danger">Not approved</span>';

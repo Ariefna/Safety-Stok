@@ -96,7 +96,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                             <div class="form-group row">
                                                 <label for="" class="col-sm-2 col-form-label">Jumlah</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" class="form-control" id="" placeholder="" name="jumlah_barang" value="<?php echo $jumlah_barang; ?>" required>
+                                                    <input type="text" class="form-control" id="" placeholder="" name="jumlah_barang" value="<?php echo $jumlah_barang; ?>" required readonly>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -105,7 +105,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                     <input type="text" class="form-control" id="" placeholder="" name="harga_barang" value="<?php echo $harga_barang; ?>" required>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <!-- <div class="form-group row">
                                                 <label for="" class="col-sm-2 col-form-label">Keterangan Barang </label>
                                                 <div class="form-group col-sm-10">
                                                     <textarea type="text" class="form-control" id="keterangan_barang" placeholder="Masukkan Keterangan .." rows="4" cols="50" name="keterangan_barang" value="" required><?php echo $keterangan_barang; ?></textarea>
@@ -116,7 +116,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                 <div class="form-group col-sm-10">
                                                     <textarea type="text" class="form-control" id="catatan_barang" placeholder="Masukkan Catatan .." rows="4" cols="50" name="catatan_barang" value="" required><?php echo $catatan_barang; ?></textarea>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <button type="submit" class="btn btn-primary" name="ubahya">Simpan</button>
                                         </div>

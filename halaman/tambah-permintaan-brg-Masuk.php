@@ -19,7 +19,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                 $(sel).closest('.group').find('.satuannya').text(valuenya);
                 $.ajax({
                     method: 'GET',
-                    url: "config/ajax_permintaan_barang_in.php",
+                    url: "config/ajax_permintaan_barang_in.php ",
                     data: {
                         q: barang
                     },
@@ -124,8 +124,8 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             ORDER BY b.nama_satuan_barang ASC");
                                                             while ($data = mysqli_fetch_array($str)) { ?>
                                                                 <option data-id="<?php echo @$data['nama_satuan_barang']; ?>" data-barang="<?php echo @$data['id_barang']; ?>" value="<?php echo @$data[0]; ?>" <?php if (@$row[0] == @$data[0]) {
-                                                                                                                                                                                        echo "selected";
-                                                                                                                                                                                    } ?>> <?php echo @$data[2]; ?> - <?php echo @$data[3]; ?> (<?php echo @$data[14]; ?>)</option>
+                                                                                                                                                                                                                    echo "selected";
+                                                                                                                                                                                                                } ?>> <?php echo @$data[2]; ?> - <?php echo @$data[3]; ?> (<?php echo @$data[14]; ?>)</option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>

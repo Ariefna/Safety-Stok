@@ -65,7 +65,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                 $sql = "SELECT a.*,status_permintaan_brg_in, d.kode_permintaan_brg_in, d.date_permintaan_brg_in, b.nama_barang, b.no_serial, c.nama_satuan_barang
                                                     FROM detail_permintaan_in a JOIN barang b ON a.id_barang = b.id_barang
                                                     JOIN satuan_barang c ON b.id_satuan_barang = c.id_satuan_barang JOIN permintaan_barang_in d ON a.kode_permintaan_brg_in=d.kode_permintaan_brg_in
-                                                    where status_permintaan_brg_in = 1";
+                                                    where status_permintaan_brg_in = 2";
                                                 $i = 1;
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {

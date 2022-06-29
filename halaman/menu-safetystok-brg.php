@@ -72,10 +72,10 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                 $query = mysqli_query($conn, $sql);
                                                 if (mysqli_num_rows($query) > 0) {
                                                     while ($row = mysqli_fetch_assoc($query)) {
-                                                      $safetystok = $row['safetystok']*2;
-                                                      $qtynow = $row['jumlah_barang'] + $row['masuk'] - $row['keluar'];
-                                                      if ($qtynow<=$safetystok) {
-                                                        echo '<tr>
+                                                        $safetystok = $row['safetystok'] * 2;
+                                                        $qtynow = $row['jumlah_barang'] + $row['masuk'] - $row['keluar'];
+                                                        if ($qtynow <= $safetystok) {
+                                                            echo '<tr>
                                                             <td align="center">' . $i++ . '</td>
                                                             <td align="">' . $row['no_request'] . '</td>
                                                             <td align="">' . $row['nama_barang'] . '</td>
@@ -84,8 +84,7 @@ if ((!isset($_SESSION['appks'])) || ($_SESSION['appks'] != true)) {
                                                             <td align="">' . $row['nama_satuan_barang'] . '</td>
                                                             </tr>
                                                             ';
-                                                      }
-
+                                                        }
                                                     }
                                                 } else {
                                                 }
